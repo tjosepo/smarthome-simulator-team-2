@@ -1,0 +1,5 @@
+.gradle
+gradle-app.setting
+.idea
+build
+node_modules
