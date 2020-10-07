@@ -1,6 +1,6 @@
 ## smarthome-simulator
 
-smarthome-simulator is a Java application that allows you to make simulations of smart home software by integrating to this application them as modules.
+smarthome-simulator is a Java application that allows you to make simulations of smart home software by integrating them to this application as modules.
 
 ## Building locally
 To build this project, make sure you have [Java SE](https://www.oracle.com/java/technologies/javase-downloads.html) installed. The project was configured with SE 13, but any Java version above 7 should work.
