@@ -1,34 +1,34 @@
-package smarthome;
+package smarthome.models;
 
 import java.util.Arrays;
 
 /**
- * The type Room.
+ * Class of type Room.
  */
 public class Room {
     /**
-     * The Id.
+     *  Creating a private int called id.
      */
     private int id;
     /**
-     * The Name.
+     * Creating private string called name.
      */
     private String name;
     /**
-     * The Windows.
+     * Creating private array of window objects called windows.
      */
    private Window[] windows;
     /**
-     * The Lights.
+     * Creating private array of light objects called lights.
      */
    private Light[] lights;
     /**
-     * The Doors.
+     * Creating a private array of door objects called doors.
      */
    private Door[] doors;
 
     /**
-     * Instantiates a new Room.
+     * Instantiates a new Room with the following parameters.
      *
      * @param id      the id
      * @param name    the name
@@ -45,7 +45,7 @@ public class Room {
     }
 
     /**
-     * Gets id.
+     * Getter method that returns id.
      *
      * @return the id
      */
@@ -54,7 +54,7 @@ public class Room {
     }
 
     /**
-     * Gets name.
+     * Getter method that returns name.
      *
      * @return the name
      */
@@ -63,7 +63,7 @@ public class Room {
     }
 
     /**
-     * Get windows window [ ].
+     * Getter method that returns the array windows .
      *
      * @return the window [ ]
      */
@@ -72,7 +72,7 @@ public class Room {
     }
 
     /**
-     * Get lights light [ ].
+     * Getter method that returns the array lights.
      *
      * @return the light [ ]
      */
@@ -81,25 +81,18 @@ public class Room {
     }
 
     /**
-     * Get doors door [ ].
+     * Getter method that returns the array doors.
      *
-     * @return the door [ ]
+     * @return  doors
      */
     public Door[] getDoors() {
         return doors;
     }
 
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
+
 
     /**
-     * Sets name.
+     * Setter method that will set the name.
      *
      * @param name the name
      */
@@ -108,7 +101,7 @@ public class Room {
     }
 
     /**
-     * Sets windows.
+     * Setter method that will set the array windows.
      *
      * @param windows the windows
      */
@@ -117,7 +110,7 @@ public class Room {
     }
 
     /**
-     * Sets lights.
+     * Setter method that will set the array lights.
      *
      * @param lights the lights
      */
@@ -126,7 +119,7 @@ public class Room {
     }
 
     /**
-     * Sets doors.
+     * Setter method that will set the array doors.
      *
      * @param doors the doors
      */
@@ -134,6 +127,10 @@ public class Room {
         this.doors = doors;
     }
 
+    /**
+     * To String method that will display the features of the room
+     * @return String
+     */
     @Override
     public String toString() {
         return "Room{" +

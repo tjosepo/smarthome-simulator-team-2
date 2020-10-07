@@ -1,38 +1,43 @@
-package smarthome;
+package smarthome.models;
 
 /**
- * The type Light.
+ * Class of type Light.
  */
 public class Light {
     /**
-     * The Id.
+     * Creating a private int called id.
      */
    private int id;
     /**
-     * The On.
+     * Creating a private boolean called on.
      */
    private boolean on = false;
 
+   /**
+     * Instantiates a new light with the following parameters.
+     *
+     * @param id      the int id
+     * @param on      the boolean opened
+     *
+     */
+
+    public Light(int id, boolean on) {
+        this.id = id;
+        this.on = on;
+    }
+
     /**
-     * Gets id.
+     *  Getter method that returns id.
      *
      * @return the id
      */
+
     public int getId() {
         return id;
     }
 
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * Is on boolean.
+     /**
+     * Getter method that returns value of boolean on.
      *
      * @return the boolean
      */

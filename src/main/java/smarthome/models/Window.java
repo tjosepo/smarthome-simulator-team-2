@@ -1,28 +1,28 @@
-package smarthome;
+package smarthome.models;
 
 /**
- * The type Window.
+ * Class of type Window.
  */
 public class Window {
     /**
-     * The Id.
+     * Creating a private int called id.
      */
     private int id;
     /**
-     * The Opened.
+     * Creating a private boolean called opened
      */
    private boolean opened;
     /**
-     * The Blocked.
+     * Creating a private boolean called blocked
      */
    private boolean blocked;
 
     /**
-     * Instantiates a new Window.
+     * Instantiates a new Window with the following parameters.
      *
-     * @param id      the id
-     * @param opened  the opened
-     * @param blocked the blocked
+     * @param id      the int id
+     * @param opened  the boolean opened
+     * @param blocked the boolean blocked
      */
     public Window(int id, boolean opened, boolean blocked) {
         this.id = id;
@@ -31,7 +31,7 @@ public class Window {
     }
 
     /**
-     * Gets id.
+     * Getter method that returns id.
      *
      * @return the id
      */
@@ -40,49 +40,46 @@ public class Window {
     }
 
     /**
-     * Is opened boolean.
+     * Getter method returning value of boolean opened.
      *
-     * @return the boolean
+     * @return the boolean opened
      */
     public boolean isOpened() {
         return opened;
     }
 
     /**
-     * Is blocked boolean.
+     * Getter method returning value of boolean blocked.
      *
-     * @return the boolean
+     * @return the boolean blocked
      */
     public boolean isBlocked() {
         return blocked;
     }
 
-    /**
-     * Sets id.
-     *
-     * @param id the id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
 
     /**
-     * Sets opened.
+     * Setter method that will set the value of boolean opened
      *
-     * @param opened the opened
+     * @param opened the boolean opened
      */
     public void setOpened(boolean opened) {
         this.opened = opened;
     }
 
     /**
-     * Sets blocked.
+     * Setter method that will set the value of boolean blocked
      *
-     * @param blocked the blocked
+     * @param blocked the boolean blocked
      */
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
     }
+
+    /**
+     * To String method that will display the features of the room
+     * @return String
+     */
 
     @Override
     public String toString() {
