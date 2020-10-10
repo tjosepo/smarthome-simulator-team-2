@@ -13,9 +13,9 @@ public class User{
      */
     private String name;
     /**
-     * Creating a private enum called role with constants Parent, Child, Guest and Stranger.
+     * Creating a private string called role.
      */
-    private enum role {Parent, Child, Guest, Stranger};
+    private String role;
     /**
      * Creating a Room called location.
      */
@@ -28,10 +28,11 @@ public class User{
      * @param name     the String name
      * @param location the Room location
      */
-    public User(int id, String name, Room location) {
+    public User(int id, String name, Room location,String role) {
         this.id = id;
         this.name = name;
         this.location = location;
+        this.role = role;
     }
 
     /**
