@@ -29,7 +29,7 @@ public class User{
      */
 
     public User(String name,String role) {
-        id = id++;
+        id++;
         this.name = name;
         this.role = role;
     }
