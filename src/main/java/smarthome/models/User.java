@@ -7,7 +7,7 @@ public class User{
     /**
      * Creating a private int called id.
      */
-    private int id;
+    private static int id = 0;
     /**
      * Creating a private String called name.
      */
@@ -24,14 +24,13 @@ public class User{
     /**
      * Instantiates a new User.
      *
-     * @param id       the int id
      * @param name     the String name
-     * @param location the Room location
+     * @param role     the user's role
      */
-    public User(int id, String name, Room location,String role) {
-        this.id = id;
+
+    public User(String name,String role) {
+        id = id++;
         this.name = name;
-        this.location = location;
         this.role = role;
     }
 
