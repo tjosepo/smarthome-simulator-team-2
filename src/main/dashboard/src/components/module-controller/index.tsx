@@ -10,20 +10,33 @@ function ModuleController() {
           <a className="nav-link active" id="shs-tab" data-toggle="tab" href="#shs" role="tab" aria-controls="home" aria-selected="true">SHS</a>
         </li>
         <li className="nav-item" role="presentation">
-          <a className="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+          <a className="nav-link" id="shc-tab" data-toggle="tab" href="#shc" role="tab" aria-controls="shc" aria-selected="false">SHC</a>
         </li>
         <li className="nav-item" role="presentation">
-          <a className="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+          <a className="nav-link" id="shp-tab" data-toggle="tab" href="#shp" role="tab" aria-controls="shp" aria-selected="false">SHP</a>
+        </li>
+        <li className="nav-item" role="presentation">
+          <a className="nav-link" id="shh-tab" data-toggle="tab" href="#shh" role="tab" aria-controls="shh" aria-selected="false">SHH</a>
         </li>
       </ul>
       <div className="tab-content card" id="moduleTabContent">
         <div className="tab-pane card-body fade show active" id="shs" role="tabpanel" aria-labelledby="shs-tab">
-          <h5 className="card-title">Special title treatment</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <h5 className="card-title">Smart Home Simulator</h5>
+          <p className="card-text">To do.</p>
           <button className="btn btn-primary">Go somewhere</button>
         </div>
-        <div className="tab-pane card-body fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-        <div className="tab-pane card-body fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+        <div className="tab-pane card-body fade" id="shc" role="tabpanel" aria-labelledby="shc-tab">
+          <h5 className="card-title">Smart Home Core</h5>
+          <p className="card-text">Not available.</p>
+        </div>
+        <div className="tab-pane card-body fade" id="shp" role="tabpanel" aria-labelledby="shp-tab">
+          <h5 className="card-title">Smart Home Security</h5>
+          <p className="card-text">Not available.</p>
+        </div>
+        <div className="tab-pane card-body fade" id="shh" role="tabpanel" aria-labelledby="shh-tab">
+          <h5 className="card-title">Smart Heating</h5>
+          <p className="card-text">Not available.</p>
+        </div>
       </div>
     </div>
   );

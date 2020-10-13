@@ -1,0 +1,40 @@
+[
+  {
+    "name": "Kitchen",
+    "x": 1,
+    "y": 0,
+    "south": "door",
+    "north": "window"
+  },
+  {
+    "name": "Dining",
+    "x": 1,
+    "y": 1,
+    "north": "door"
+  },
+  {
+    "name": "Great Room",
+    "x": 1,
+    "y": 2,
+    "heigth": 2,
+    "north": "door"
+  },
+  {
+    "name": "Garage",
+    "x": 0,
+    "y": 2,
+    "north": "door"
+  },
+  {
+    "name": "Bed Room",
+    "x": 2,
+    "y": 1,
+    "north": "door"
+  },
+  {
+    "name": "Master Bed Room",
+    "x": 2,
+    "y": 2,
+    "north": "door"
+  }
+]
