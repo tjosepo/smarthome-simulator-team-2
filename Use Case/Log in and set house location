@@ -1,0 +1,31 @@
+Use Case Name: Log in and set house location
+
+Level: User-level
+
+Description: Logging into the system with an existing user account and setting house location
+
+Precondition: System set up for house which is owned by user
+
+Triggering event: New house, moving out of former residence
+
+Main flow: Install system
+Log in with admin/parent user profile
+Prompt house location setting
+Enter address/location
+Ask to import old setting into new house
+Accept import
+Save into system
+
+Extensions: 
+1. Different house setting
+After saving into system, if there are conflict of setting or missing setting ask for them to be filled
+Adjust setting to new location
+Submit to system
+Save and update into system
+2. Refuse import
+Perform set up for a new house as if new user
+Submit new/different setting for house
+Save into system
+
+Postconditions:
+Settings should have been imported from old house to new one
