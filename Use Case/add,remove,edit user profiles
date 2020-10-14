@@ -1,0 +1,31 @@
+Use Case Name: Add/remove edit user profiles
+
+Level: User-level
+
+Description: Create and delete user profiles as well as change them
+
+Precondition: There must be a parent/admin level user 
+
+Triggering event: Change in role for a person within the house
+
+Main flow:
+Login from user applying change
+Select profiles needed to be changed
+Apply changes, ex: Stranger-> Guest, Guest-> Stranger
+Grant/Remove relate premissions
+Saves changes into the system
+
+Extensions: 
+1. User applying change isn't parent
+Login
+Select profiles needed to be changed
+Apply changes
+Changes refused
+2. Automatic profile changes Guest/Children profile
+Guest/Children enters or leaves the house
+Optional timer started
+Time frame expires
+Guest/Children profile premissions granted/revoked
+
+Postconditions:
+Changes must be updated in the systems
