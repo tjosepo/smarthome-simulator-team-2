@@ -1,0 +1,20 @@
+Use Case: Set date and time
+
+Level: subfuntion
+
+Description: Set or Change date and time
+
+Precondition: Logged in with parent/admin level user
+
+Triggering event: Change of timezone
+
+Main flow: 
+Select time
+Go to options and settings
+Change/set time
+Save into system
+
+Extenstions: 
+
+Postconditions: 
+Time applied is now displayed
