@@ -7,22 +7,31 @@ public class Door {
     /**
      * Creating a private in called id.
      */
-   private int id;
+   private static int id = 0;
+
     /**
      * Creating a private boolean called opened.
      */
-    private boolean opened = false;
+    private boolean opened;
+
+    /**
+     * Default constructor that will increment the static variable id by 1 every time a door is created, and initializing boolean opened to false
+     */
+    public Door()
+    {
+        id++;
+        this.opened = false;
+    }
 
     /**
      * Instantiates a new Door.
      *
-     * @param id the int id
      * @param opened the boolean opened
      */
-    public Door(int id,  boolean opened)
+    public Door(boolean opened)
     {
-        this.id = id;
-        this.opened= opened;
+        id++;
+        this.opened = opened;
 
     }
 
@@ -34,7 +43,6 @@ public class Door {
     public int getId() {
         return id;
     }
-
 
     /**
      * To String method that will display the features of the room
