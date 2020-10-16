@@ -1,0 +1,32 @@
+.HouseView {
+  .grid {
+    user-select: none;
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
+    padding: 8px;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+    margin-bottom: 1rem;
+
+    .room {
+      padding: 20px;
+      text-align: center;
+      background-color: #fff;
+      border: 1px solid rgba(0, 0, 0, .125);
+    }
+  }
+
+  .empty-house {
+    user-select: none;
+    text-align: center;
+    padding: 100px 0;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    text-align: center;
+  }
+}
