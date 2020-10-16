@@ -7,7 +7,7 @@ public class Window {
     /**
      * Creating a private int called id.
      */
-    private int id;
+    private int id = 0;
     /**
      * Creating a private boolean called opened
      */
@@ -18,14 +18,22 @@ public class Window {
    private boolean blocked;
 
     /**
+     * Default constructor that will increment the static variable id by 1 every time a window is created, and initializing boolean opened  and blocked to false
+     */
+   public Window()
+   {
+       id++;
+       this.opened = false;
+       this.blocked = false;
+   }
+    /**
      * Instantiates a new Window with the following parameters.
      *
-     * @param id      the int id
      * @param opened  the boolean opened
      * @param blocked the boolean blocked
      */
-    public Window(int id, boolean opened, boolean blocked) {
-        this.id = id;
+    public Window(boolean opened, boolean blocked) {
+        id++;
         this.opened = opened;
         this.blocked = blocked;
     }
