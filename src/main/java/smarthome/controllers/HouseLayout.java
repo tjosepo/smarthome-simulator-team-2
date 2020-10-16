@@ -13,8 +13,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
  * Class of HouseLayout type
  */
 public class HouseLayout {
-    private List<Room> rooms;
-    private Room outside;
 
     /**
      * Static class of RoomLayout type
@@ -26,35 +24,15 @@ public class HouseLayout {
         private int doors;
     }
 
-    /**
-     * Class of LayoutFile type
-     */
-    private class LayoutFile {
-        private List<RoomLayout> layout;
-
-        /**
-         * Class constructor
-         *
-         * @param jsonLayout    The layout of the house in json formatted string
-         */
-        public LayoutFile(String jsonLayout) {
-
-            try {
-                ObjectMapper mapper = new ObjectMapper();
-                layout = mapper.readValue(jsonLayout, new TypeReference<List<RoomLayout>>(){});
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-
-        }
-    }
+    private List<Room> rooms;
+    private Room outside;
 
     /**
      * Class default constructor
      */
     public HouseLayout() {
         this.rooms = new ArrayList<Room>();
-        this.outside = new Room(0, "outside", null, null, null);
+        this.outside = new Room("outside", null, null, null);
     }
 
     /**
@@ -63,18 +41,45 @@ public class HouseLayout {
      * @param jsonLayout    The layout of the house in json formatted string
      */
     public HouseLayout(String jsonLayout) {
-        this.outside = new Room(0, "outside", null, null, null);
+        this.outside = new Room("outside", null, null, null);
+
+        readLayoutFile(jsonLayout);
+
+    }
+
+    /**
+     * Reads a json representation of a house layout and models the house
+     *
+     * @param jsonLayout    The layout of the house in json formatted string
+     */
+    public void readLayoutFile(String jsonLayout) {
+        rooms = new ArrayList<Room>();
         try {
             ObjectMapper mapper = new ObjectMapper();
             List<RoomLayout> layout = mapper.readValue(jsonLayout, new TypeReference<List<RoomLayout>>(){});
+
+            for (RoomLayout roomLayout : layout) {
+                Window windows[] = new Window[roomLayout.windows];
+                Light lights[] = new Light[roomLayout.lights];
+                Door doors[] = new Door[roomLayout.doors];
+
+                for (int i = 0; i < roomLayout.windows; i++) {
+                    windows[i] = new Window();
+                }
+                for (int i = 0; i < roomLayout.lights; i++) {
+                    lights[i] = new Light();
+                }
+                for (int i = 0; i < roomLayout.doors; i++) {
+                    doors[i] = new Door();
+                }
+
+                rooms.add(new Room(roomLayout.name, windows, lights, doors));
+            }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public void readLayoutFile(String jsonLayout) {
 
     }
-
 
 }
