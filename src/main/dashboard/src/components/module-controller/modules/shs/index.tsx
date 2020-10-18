@@ -53,7 +53,25 @@ function SHS({ simulating, users, setUsers, setHouseLayout }: Props) {
         </div>
       </div>
 
+      <div className="row mb-2">
+        <label className="col-sm-4 col-form-label" htmlFor="Location">Location</label>
+        <div className="col-sm-8">
+          <input type="text" className="form-control" id="Location" disabled={simulating} />
         </div>
+      </div>
+
+      <div className="row mb-2">
+        <label className="col-sm-4 col-form-label" htmlFor="LogInAs">Log in as</label>
+        <div className="col-sm-8">
+          <select className="form-select" aria-label="Log in as" id="LogInAs" name="logInAs" defaultValue="">
+            <option value="" hidden></option>
+            {users.map((user) =>
+              <option key={user.id} value={user.id}>{user.name}</option>
+            )}
+          </select>
+        </div>
+        </div>
+
       <h5 className="card-title">Users</h5>
 
       <div className="list-group">
