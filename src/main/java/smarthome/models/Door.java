@@ -8,7 +8,10 @@ public class Door {
      * Creating a private in called id.
      */
    private int id = 0;
-
+    /**
+     * Creating a private static int called numDoors.
+     */
+    private static int numDoors = 0;
     /**
      * Creating a private boolean called opened.
      */
@@ -19,8 +22,9 @@ public class Door {
      */
     public Door()
     {
-        id++;
+        id = 1 + numDoors;
         this.opened = false;
+        numDoors++;
     }
 
     /**
@@ -30,8 +34,9 @@ public class Door {
      */
     public Door(boolean opened)
     {
-        id++;
+        id = 1 + numDoors;
         this.opened = opened;
+        numDoors++;
 
     }
 

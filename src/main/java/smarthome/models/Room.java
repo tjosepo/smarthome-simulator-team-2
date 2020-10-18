@@ -11,6 +11,10 @@ public class Room {
      */
     private int id = 0;
     /**
+     *  Creating a private static int called numRooms.
+     */
+    private static int numRooms = 0;
+    /**
      * Creating private string called name.
      */
     private String name;
@@ -37,11 +41,12 @@ public class Room {
      * @param doors   the doors
      */
     public Room(String name, Window[] windows, Light[] lights, Door[] doors) {
-        id++;
+        id = 1 + numRooms;
         this.name = name;
         this.windows = windows;
         this.lights = lights;
         this.doors = doors;
+        numRooms++;
     }
 
     /**

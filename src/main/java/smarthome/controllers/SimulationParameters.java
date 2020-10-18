@@ -41,7 +41,7 @@ public class SimulationParameters {
      */
     public void removeUser(int id) {
         for (int i = 0; i < users.size(); i++) {
-            if (users.getId == id) {
+            if (users.get(i).getId() == id) {
                 users.remove(i);
             }
         }
@@ -73,7 +73,7 @@ public class SimulationParameters {
     public void logInAs(int id) {
         for(int i = 0; i < users.size(); i++) {
             if (users.get(i).getId() == id)
-                loggedAs = user.get(i);
+                loggedAs = users.get(i);
         }
     }
 

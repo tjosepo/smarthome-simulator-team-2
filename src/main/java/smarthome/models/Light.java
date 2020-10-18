@@ -9,17 +9,21 @@ public class Light {
      */
    private int id = 0;
     /**
+     * Creating a private static int called numLights.
+     */
+   private static int numLights = 0;
+    /**
      * Creating a private boolean called on.
      */
    private boolean on;
-
     /**
      * Default constructor that will increment the static variable id by 1 every time a light is created, and initializing boolean on to false
      */
     public Light()
     {
-        id++;
+        id = 1 + numLights;
         this.on = false;
+        numLights++;
     }
 
    /**
@@ -31,8 +35,9 @@ public class Light {
      */
 
     public Light(boolean on) {
-        id++;
+        id = 1+ numLights;
         this.on = on;
+        numLights++;
     }
 
     /**
