@@ -53,6 +53,7 @@ function SHS({ simulating, users, setUsers, setHouseLayout }: Props) {
         </div>
       </div>
 
+        </div>
       <h5 className="card-title">Users</h5>
 
       <div className="list-group">
