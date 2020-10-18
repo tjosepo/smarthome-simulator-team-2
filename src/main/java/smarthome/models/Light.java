@@ -7,7 +7,7 @@ public class Light {
     /**
      * Creating a private int called id.
      */
-   private static int id = 0;
+   private int id = 0;
     /**
      * Creating a private boolean called on.
      */

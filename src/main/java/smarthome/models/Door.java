@@ -7,7 +7,7 @@ public class Door {
     /**
      * Creating a private in called id.
      */
-   private static int id = 0;
+   private int id = 0;
 
     /**
      * Creating a private boolean called opened.
