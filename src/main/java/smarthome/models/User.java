@@ -7,7 +7,11 @@ public class User{
     /**
      * Creating a private int called id.
      */
-    private static int id = 0;
+    private int id = 0;
+    /**
+     * Creating a private int called id.
+     */
+    private static int numUsers = 0;
     /**
      * Creating a private String called name.
      */
@@ -29,9 +33,10 @@ public class User{
      */
 
     public User(String name,String role) {
-        id++;
+        id = 1 + numUsers;
         this.name = name;
         this.role = role;
+        numUsers++;
     }
 
     /**
