@@ -1,0 +1,16 @@
+.SHS {
+  .form-file {
+    height: var(--bs-form-file-height);
+
+    .form-file-label {
+      left: calc(var(--bs-gutter-x)/ 2);
+      right: calc(var(--bs-gutter-x)/ 2);
+    }
+  }
+
+  .list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
