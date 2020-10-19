@@ -13,15 +13,54 @@ public class SimulationParameters {
     private User loggedAs;
 
     /**
+     * Accessor for users
+     *
+     * @return users
+     */
+    public ArrayList<User> getUsers() {
+        return users;
+    }
+
+    /**
+     * Accessor for Date
+     *
+     * @return date
+     */
+    public Date getDate() {
+        return date;
+    }
+
+    /**
+     * Accessor for location
+     *
+     * @return location
+     */
+    public String getLocation() {
+        return location;
+    }
+
+    /**
+     * Accessor for loggedAs
+     *
+     * @return loggedAs
+     */
+    public User getLoggedAs() {
+        return loggedAs;
+    }
+
+    /**
      * Class constructor
      *
      * @param date      Simulation date
      * @param location  Simulation location
      */
     public SimulationParameters(Date date, String location) {
+        users = new ArrayList<>();
         this.date = date;
         this.location = location;
     }
+
+
 
     /**
      * Adds a users to the arraylist of users if user has a valid role
@@ -40,9 +79,9 @@ public class SimulationParameters {
      * @param id    The id of the user to be removed
      */
     public void removeUser(int id) {
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getId() == id) {
-                users.remove(i);
+        for (User user : users) {
+            if (user.getId() == id) {
+                users.remove(user);
             }
         }
     }
@@ -71,9 +110,9 @@ public class SimulationParameters {
      * @param id The ID of the user to be logged in as
      */
     public void logInAs(int id) {
-        for(int i = 0; i < users.size(); i++) {
-            if (users.get(i).getId() == id)
-                loggedAs = users.get(i);
+        for(User user : users) {
+            if (user.getId() == id)
+                loggedAs = user;
         }
     }
 
