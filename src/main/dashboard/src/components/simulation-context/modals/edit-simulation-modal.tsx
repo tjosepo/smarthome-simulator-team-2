@@ -1,16 +1,31 @@
 import React from 'react';
-import { User } from '../../../models';
+import { User, Room } from '../../../models';
 
 interface Props {
-  users: User[]
+  users: User[],
+  rooms: Room[],
+  setUsers: React.Dispatch<React.SetStateAction<User[]>>
 }
 
-function EditSimulationModal({ users }: Props) {
+function EditSimulationModal({ users, setUsers, rooms }: Props) {
 
-  const editSimulation = (e: React.FormEvent) => {
+  const editSimulation = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    alert('Not implemented yet.');
+    const form = e.target as HTMLFormElement;
+    const data = new FormData(form);
+
+    const response = await fetch('http://localhost:7000/api/move-users', {
+      method: 'POST',
+      body: data
+    });
+    
+    const users = await response.json() as User[];
+    console.log(users);
+
+    setUsers(users);
+    (form.querySelector('[data-dismiss="modal"]') as HTMLElement).click();
+    form.reset();
   }
 
   return (
@@ -25,11 +40,14 @@ function EditSimulationModal({ users }: Props) {
             <h5>Move Users</h5>
             {users.length > 0 ?
               users.map((user) =>
-                <div className="row mb-2">
-                  <label className="col-sm-4 col-form-label" htmlFor={user.name}>{user.name}</label>
+                <div key={`moveUser${user.id}`} className="row mb-2">
+                  <label className="col-sm-4 col-form-label" htmlFor={`LocationUser${user.id}`}>{user.name}</label>
                   <div className="col-sm-8">
-                    <select className="form-select" aria-label="Default select example" id="Role" name={`${user.name}_location`} required defaultValue="-1">
+                    <select className="form-select" aria-label="Default select example" id={`LocationUser${user.id}`} name={`locationUser${user.id}`} required defaultValue="-1">
                       <option value="-1">Outside</option>
+                      {rooms.map((room) =>
+                        <option key={room.id} value={room.id}>{room.name}</option>
+                      )}
                     </select>
                   </div>
                 </div>
@@ -39,7 +57,27 @@ function EditSimulationModal({ users }: Props) {
             }
 
             <h5>Block Windows</h5>
-            <p>No windows to block.</p>
+            {rooms.length > 0 ?
+              rooms.map((room) =>
+                <div key={`blockRoom${room.id}`}>
+                  <h6>{room.name}</h6>
+                  {rooms.length > 0 ?
+                    room.windows.map((window) =>
+                      <div key={`blockWindow${window.id}`} className="form-check">
+                        <input className="form-check-input" type="checkbox" value="" id={`blockWindow${window.id}`} />
+                        <label className="form-check-label" htmlFor={`blockWindow${window.id}`}>
+                          Block window {window.id}
+                        </label>
+                      </div>
+                    )
+                    :
+                    <p>No windows in {room.name}</p>
+                  }
+                </div>
+              )
+              :
+              <p>No windows to block.</p>
+            }
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>

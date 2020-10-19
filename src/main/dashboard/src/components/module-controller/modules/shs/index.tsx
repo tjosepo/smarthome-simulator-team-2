@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import AddUserModal from './modals/add-user-modal';
 import DeleteUserModal from './modals/delete-user-modal';
-import { User, RoomLayout } from '../../../../models';
+import { User, Room } from '../../../../models';
 import 'bootstrap/js/dist/modal.js';
 import './style.scss';
 
@@ -9,9 +9,9 @@ interface Props {
   simulating: boolean,
   users: User[],
   setUsers: React.Dispatch<React.SetStateAction<User[]>>,
-  setHouseLayout: React.Dispatch<React.SetStateAction<RoomLayout[]>>
+  setRooms: React.Dispatch<React.SetStateAction<Room[]>>
 }
-function SHS({ simulating, users, setUsers, setHouseLayout }: Props) {
+function SHS({ simulating, users, setUsers, setRooms }: Props) {
   const [filename, setFilename] = useState<string>("");
   const [userToDelete, setUserToDelete] = useState<User>();
 
@@ -19,9 +19,17 @@ function SHS({ simulating, users, setUsers, setHouseLayout }: Props) {
     if (files === null) return;
     if (files.length === 0) return;
     const layoutFile = files[0];
-    const layoutFileText = await layoutFile.text();
+    const layoutFileData = await layoutFile.text();
     setFilename(layoutFile.name);
-    setHouseLayout(JSON.parse(layoutFileText));
+
+    const response = await fetch('http://localhost:7000/api/set-house-layout', {
+      method: 'POST',
+      body: layoutFileData
+    });
+
+    const rooms = await response.json() as Room[];
+    console.log(rooms);
+    setRooms(rooms);
   }
 
   return (
@@ -57,7 +65,7 @@ function SHS({ simulating, users, setUsers, setHouseLayout }: Props) {
         <label className="col-sm-4 col-form-label" htmlFor="Temperature">Outside temperature</label>
         <div className="col-sm-8">
           <div className="input-group">
-            <input id="Temperature" type="number" className="form-control" aria-label="Temperature" />
+            <input id="Temperature" type="number" className="form-control" aria-label="Temperature" disabled={simulating} />
             <span className="input-group-text">°C</span>
           </div>
         </div>
@@ -73,7 +81,7 @@ function SHS({ simulating, users, setUsers, setHouseLayout }: Props) {
       <div className="row mb-2">
         <label className="col-sm-4 col-form-label" htmlFor="LogInAs">Log in as</label>
         <div className="col-sm-8">
-          <select className="form-select" aria-label="Log in as" id="LogInAs" name="logInAs" defaultValue="">
+          <select className="form-select" aria-label="Log in as" id="LogInAs" name="logInAs" defaultValue="" disabled={simulating}>
             <option value="" hidden></option>
             {users.map((user) =>
               <option key={user.id} value={user.id}>{user.name}</option>
@@ -105,11 +113,11 @@ function SHS({ simulating, users, setUsers, setHouseLayout }: Props) {
         )}
 
         {simulating ?
-          <span className="list-group-item list-group-item-action text-secondary">
+          <span className="list-group-item text-secondary">
             Add user
           </span>
           :
-          <a data-target="#AddUserModal" className="list-group-item list-group-item-action text-secondary" data-toggle="modal">
+          <a href="#AddUserModal" className="list-group-item list-group-item-action text-secondary" data-toggle="modal">
             Add user
           </a>
         }

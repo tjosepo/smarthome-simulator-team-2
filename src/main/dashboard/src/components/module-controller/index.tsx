@@ -1,6 +1,6 @@
 import React from 'react';
 import SHS from './modules/shs';
-import { User, RoomLayout } from '../../models';
+import { User, Room } from '../../models';
 import 'bootstrap/js/dist/tab.js';
 import './style.scss';
 
@@ -8,10 +8,10 @@ interface Props {
   simulating: boolean,
   users: User[],
   setUsers: React.Dispatch<React.SetStateAction<User[]>>,
-  setHouseLayout: React.Dispatch<React.SetStateAction<RoomLayout[]>>
+  setRooms: React.Dispatch<React.SetStateAction<Room[]>>
 }
 
-function ModuleController({ simulating, users, setUsers, setHouseLayout }: Props) {
+function ModuleController({ simulating, users, setUsers, setRooms }: Props) {
   return (
     <div className="ModuleController">
       <ul className="nav nav-tabs" id="moduleTab" role="tablist">
@@ -30,7 +30,7 @@ function ModuleController({ simulating, users, setUsers, setHouseLayout }: Props
       </ul>
       <div className="tab-content card" id="moduleTabContent">
         <div className="tab-pane card-body fade show active" id="shs" role="tabpanel" aria-labelledby="shs-tab">
-          <SHS {...{ simulating, users, setUsers, setHouseLayout }} />
+          <SHS {...{ simulating, users, setUsers, setRooms }} />
         </div>
         <div className="tab-pane card-body fade" id="shc" role="tabpanel" aria-labelledby="shc-tab">
           <h5 className="card-title">Smart Home Core</h5>

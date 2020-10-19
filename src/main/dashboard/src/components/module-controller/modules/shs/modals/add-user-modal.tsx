@@ -6,23 +6,22 @@ interface Props {
   setUsers: React.Dispatch<React.SetStateAction<User[]>>
 }
 
-interface Form extends HTMLFormElement {
-  username: HTMLInputElement,
-  role: HTMLSelectElement
-}
-
 function AddUserModal({ users, setUsers }: Props) {
-  const addUser = (e: React.FormEvent) => {
+  const addUser = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const form = e.target as Form;
-    const user: User = {
-      id: 0,
-      name: form.username.value,
-      role: form.role.value
-    }
+    const form = e.target as HTMLFormElement;
+    const data = new FormData(form);
 
-    setUsers([...users, user]);
+    const response = await fetch('http://localhost:7000/api/add-user', {
+      method: 'POST',
+      body: data
+    });
+    
+    const users = await response.json() as User[];
+    console.log(users);
+
+    setUsers(users);
     (form.querySelector('[data-dismiss="modal"]') as HTMLElement).click();
     form.reset();
   }
@@ -38,7 +37,7 @@ function AddUserModal({ users, setUsers }: Props) {
 
             <div className="mb-2">
               <label htmlFor="Name" className="form-label">Name</label>
-              <input type="text" className="form-control" id="Name" name="username" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\\ \\-]+" required />
+              <input type="text" className="form-control" id="Name" name="name" pattern="[A-Za-zÀ-ÖØ-öø-ÿ\\ \\-]+" required />
             </div>
 
             <div className="mb-2">

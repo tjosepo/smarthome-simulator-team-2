@@ -13,10 +13,10 @@ public class IdTests {
         User user2 = new User("Jill", "Stranger");
         User user3 = new User("Jones", "Guest");
 
-        Room room0 = new Room("John", null, null, null);
-        Room room1 = new Room("Jack", null, null, null);
-        Room room2 = new Room("Jill", null, null, null);
-        Room room3 = new Room("Jones", null, null, null);
+        Room room0 = new Room("Bedroom", null, null, null, 0, 0, 0, 0);
+        Room room1 = new Room("Kitchen", null, null, null, 0, 0, 0, 0);
+        Room room2 = new Room("Garage", null, null, null, 0, 0, 0, 0);
+        Room room3 = new Room("Living Room", null, null, null, 0, 0, 0, 0);
 
         Window window0 = new Window();
         Window window1 = new Window();
