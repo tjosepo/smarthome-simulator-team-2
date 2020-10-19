@@ -15,6 +15,42 @@ public class SimulationParameters {
     private User loggedAs;
 
     /**
+     * Accessor for users
+     *
+     * @return users
+     */
+    public ArrayList<User> getUsers() {
+        return users;
+    }
+
+    /**
+     * Accessor for Date
+     *
+     * @return date
+     */
+    public Date getDate() {
+        return date;
+    }
+
+    /**
+     * Accessor for location
+     *
+     * @return location
+     */
+    public String getLocation() {
+        return location;
+    }
+
+    /**
+     * Accessor for loggedAs
+     *
+     * @return loggedAs
+     */
+    public User getLoggedAs() {
+        return loggedAs;
+    }
+
+    /**
      * Class constructor
      *
      * @param app      Javalin object
@@ -33,6 +69,14 @@ public class SimulationParameters {
             ctx.json(users);
         });
     }
+
+    /**
+     * Class constructor that doesn't expose an API.
+     */
+    public SimulationParameters() {
+    }
+
+
 
     /**
      * Adds a users to the arraylist of users if user has a valid role
@@ -78,14 +122,6 @@ public class SimulationParameters {
     }
 
     /**
-     * Get all users
-     *
-     */
-    public ArrayList<User> getUsers() {
-        return users;
-    }
-
-    /**
      * Changes the date of the simulation
      *
      * @param date  The new Date
@@ -108,13 +144,11 @@ public class SimulationParameters {
      *
      * @param id The ID of the user to be logged in as
      */
-    /*
     public void logInAs(int id) {
-        for(int i = 0; i < users.size(); i++) {
-            if (users.get(i).getId() == id)
-                loggedAs = users.get(i);
+        for(User user : users) {
+            if (user.getId() == id)
+                loggedAs = user;
         }
     }
-     */
 
 }
