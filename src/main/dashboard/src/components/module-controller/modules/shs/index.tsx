@@ -54,6 +54,16 @@ function SHS({ simulating, users, setUsers, setHouseLayout }: Props) {
       </div>
 
       <div className="row mb-2">
+        <label className="col-sm-4 col-form-label" htmlFor="Temperature">Outside temperature</label>
+        <div className="col-sm-8">
+          <div className="input-group">
+            <input id="Temperature" type="number" className="form-control" aria-label="Temperature" />
+            <span className="input-group-text">°C</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="row mb-2">
         <label className="col-sm-4 col-form-label" htmlFor="Location">Location</label>
         <div className="col-sm-8">
           <input type="text" className="form-control" id="Location" disabled={simulating} />
@@ -70,7 +80,7 @@ function SHS({ simulating, users, setUsers, setHouseLayout }: Props) {
             )}
           </select>
         </div>
-        </div>
+      </div>
 
       <h5 className="card-title">Users</h5>
 
