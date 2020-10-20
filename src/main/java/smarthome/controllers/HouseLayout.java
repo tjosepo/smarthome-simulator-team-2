@@ -9,6 +9,9 @@ import java.util.ArrayList;
 public class HouseLayout {
     private ArrayList<Room> rooms;
 
+    public HouseLayout() {
+    }
+
     public HouseLayout(Javalin app) {
         app.post("/api/set-house-layout", ctx -> {
             LayoutFile layoutFile = ctx.bodyAsClass(LayoutFile.class);
