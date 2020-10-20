@@ -1,20 +1,13 @@
 package smarthome.controllers;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import smarthome.models.User;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class SimulationParametersTest {
 
     @Test
-    void addUser() {
+    void should_add_user() {
         SimulationParameters testParam = new SimulationParameters(new Date(), "TestLocation");
         testParam.addUser("Rick", "Parent");
         assertEquals(1, testParam.getUsers().size());
@@ -23,7 +16,7 @@ class SimulationParametersTest {
     }
 
     @Test
-    void removeUser() {
+    void should_remove_user_with_corresponding_id() {
         SimulationParameters testParam = new SimulationParameters(new Date(), "TestLocation");
         testParam.addUser("Rick", "Parent");
         testParam.addUser("Peter", "Child");
@@ -34,7 +27,7 @@ class SimulationParametersTest {
     }
 
     @Test
-    void setDate() {
+    void should_change_date() {
         SimulationParameters testParam = new SimulationParameters(new Date(), "TestLocation");
         testParam.setDate(new Date(1302979200));
         Date expected = new Date(1302979200);
@@ -42,7 +35,7 @@ class SimulationParametersTest {
     }
 
     @Test
-    void setLocation() {
+    void should_change_location() {
         SimulationParameters testParam = new SimulationParameters(new Date(), "TestLocation");
         assertEquals("TestLocation", testParam.getLocation());
         testParam.setLocation("NewLocation");
@@ -51,7 +44,7 @@ class SimulationParametersTest {
     }
 
     @Test
-    void logInAs() {
+    void should_set_loggedInAs_to_a_user() {
         SimulationParameters testParam = new SimulationParameters(new Date(), "TestLocation");
         testParam.addUser("Rick", "Parent");
         testParam.addUser("Peter", "Child");
