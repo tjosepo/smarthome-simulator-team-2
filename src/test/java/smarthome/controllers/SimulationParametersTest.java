@@ -1,11 +1,7 @@
 package smarthome.controllers;
 
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Date;
-
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class SimulationParametersTest {
@@ -18,7 +14,8 @@ class SimulationParametersTest {
     }
 
     @Test
-    void addUser() {
+    void should_add_user() {
+        SimulationParameters testParam = new SimulationParameters(new Date(), "TestLocation");
         testParam.addUser("Rick", "Parent");
         assertEquals(1, testParam.getUsers().size());
         testParam.addUser("Peter", "Child");
@@ -26,7 +23,8 @@ class SimulationParametersTest {
     }
 
     @Test
-    void removeUser() {
+    void should_remove_user_with_corresponding_id() {
+        SimulationParameters testParam = new SimulationParameters(new Date(), "TestLocation");
         testParam.addUser("Rick", "Parent");
         testParam.addUser("Peter", "Child");
         assertEquals(2, testParam.getUsers().size());
@@ -36,15 +34,16 @@ class SimulationParametersTest {
     }
 
     @Test
-    void setDate() {
+    void should_change_date() {
+        SimulationParameters testParam = new SimulationParameters(new Date(), "TestLocation");
         testParam.setDate(new Date(1302979200));
         Date expected = new Date(1302979200);
         assertEquals(expected, testParam.getDate());
     }
 
     @Test
-    void setLocation() {
-        testParam.setLocation("TestLocation");
+    void should_change_location() {
+        SimulationParameters testParam = new SimulationParameters(new Date(), "TestLocation");
         assertEquals("TestLocation", testParam.getLocation());
         testParam.setLocation("NewLocation");
         assertEquals("NewLocation", testParam.getLocation());
@@ -52,7 +51,8 @@ class SimulationParametersTest {
     }
 
     @Test
-    void logInAs() {
+    void should_set_loggedInAs_to_a_user() {
+        SimulationParameters testParam = new SimulationParameters(new Date(), "TestLocation");
         testParam.addUser("Rick", "Parent");
         testParam.addUser("Peter", "Child");
         testParam.logInAs(testParam.getUsers().get(0).getId());
