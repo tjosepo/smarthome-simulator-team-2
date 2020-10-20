@@ -7,10 +7,24 @@ import smarthome.models.Window;
 
 import java.util.ArrayList;
 
+/**
+ * The type Simulation context.
+ */
 public class SimulationContext {
+    /**
+     * Creating the variable HouseLayout of type HouseLayout.
+     */
     public HouseLayout houseLayout;
+    /**
+     * Creating the variable Simulation parameters of type simulationParameters.
+     */
     public SimulationParameters simulationParameters;
 
+    /**
+     * Instantiates a new Simulation context.
+     *
+     * @param app the app
+     */
     public SimulationContext(Javalin app) {
         houseLayout = new HouseLayout(app);
         simulationParameters = new SimulationParameters(app);
@@ -37,13 +51,18 @@ public class SimulationContext {
             ctx.json(rooms);
         });
     }
-
+    /**
+     *Method that will be used to move a user between rooms
+     *
+     * */
     private void moveUser(int userId , int roomId) {
         User user = simulationParameters.getUser(userId);
         Room room = houseLayout.getRoom(roomId);
         user.setLocation(room);
     }
-
+    /**
+     * Method that will be used to block a specified window
+     * */
     private void blockWindow(int id) {
         ArrayList<Room> rooms = houseLayout.getRooms();
         for(Room room : rooms) {

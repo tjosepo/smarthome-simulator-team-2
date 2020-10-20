@@ -6,12 +6,23 @@ import smarthome.models.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * The type House layout.
+ */
 public class HouseLayout {
     private ArrayList<Room> rooms;
 
+    /**
+     * Instantiates a new default empty house layout.
+     */
     public HouseLayout() {
     }
 
+    /**
+     * Instantiates a new House layout from a file.
+     *
+     * @param app the app
+     */
     public HouseLayout(Javalin app) {
         app.post("/api/set-house-layout", ctx -> {
             LayoutFile layoutFile = ctx.bodyAsClass(LayoutFile.class);
@@ -20,6 +31,12 @@ public class HouseLayout {
         });
     }
 
+    /**
+     * Method that will read layout file and place the rooms in an array list.
+     *
+     * @param layoutFile the layout file
+     * @return the array list
+     */
     public ArrayList<Room> readLayoutFile(LayoutFile layoutFile) {
         ArrayList<Room> rooms = new ArrayList<>();
         for (LayoutFile.RoomLayout roomLayout : layoutFile.rooms) {
@@ -42,6 +59,12 @@ public class HouseLayout {
         return rooms;
     }
 
+    /**
+     * Gets room from an id.
+     *
+     * @param id the id
+     * @return the room
+     */
     public Room getRoom(int id) {
         for (Room room : rooms) {
             if (room.getId() == id) {
@@ -51,6 +74,11 @@ public class HouseLayout {
         return null;
     }
 
+    /**
+     * Gets rooms.
+     *
+     * @return the rooms
+     */
     public ArrayList<Room> getRooms() {
         return rooms;
     }

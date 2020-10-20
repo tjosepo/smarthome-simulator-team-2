@@ -16,6 +16,7 @@ public class Light {
      * Creating a private boolean called on.
      */
    private boolean on;
+
     /**
      * Default constructor that will increment the static variable id by 1 every time a light is created, and initializing boolean on to false
      */
@@ -26,14 +27,11 @@ public class Light {
         numLights++;
     }
 
-   /**
+    /**
      * Instantiates a new light with the following parameters.
      *
-     *
-     * @param on      the boolean opened
-     *
+     * @param on the boolean opened
      */
-
     public Light(boolean on) {
         id = 1+ numLights;
         this.on = on;
@@ -41,16 +39,15 @@ public class Light {
     }
 
     /**
-     *  Getter method that returns id.
+     * Getter method that returns id.
      *
      * @return the id
      */
-
     public int getId() {
         return id;
     }
 
-     /**
+    /**
      * Getter method that returns value of boolean on.
      *
      * @return the boolean

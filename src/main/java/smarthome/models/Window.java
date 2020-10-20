@@ -24,12 +24,13 @@ public class Window {
     /**
      * Default constructor that will increment the static variable id by 1 every time a window is created, and initializing boolean opened  and blocked to false
      */
-   public Window()
+    public Window()
    {
        id = numWindows++;
        this.opened = false;
        this.blocked = false;
    }
+
     /**
      * Instantiates a new Window with the following parameters.
      *
