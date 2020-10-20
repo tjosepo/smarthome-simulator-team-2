@@ -9,7 +9,7 @@ public class Room {
     /**
      *  Creating a private int called id.
      */
-    private int id = 0;
+    private int id;
     /**
      *  Creating a private static int called numRooms.
      */
@@ -31,6 +31,11 @@ public class Room {
      */
    private Door[] doors;
 
+    public int x;
+    public int y;
+    public int width;
+    public int height;
+
     /**
      * Instantiates a new Room with the following parameters.
      *
@@ -40,13 +45,16 @@ public class Room {
      * @param lights  the lights
      * @param doors   the doors
      */
-    public Room(String name, Window[] windows, Light[] lights, Door[] doors) {
-        id = 1 + numRooms;
+    public Room(String name, Window[] windows, Light[] lights, Door[] doors, int x, int y, int width, int height) {
+        id = numRooms++;
         this.name = name;
         this.windows = windows;
         this.lights = lights;
         this.doors = doors;
-        numRooms++;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
     }
 
     /**
