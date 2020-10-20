@@ -1,0 +1,12 @@
+<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" class="bi bi-columns">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="602" width="802" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <path fill="#dc3545" id="svg_1" d="m15,2l-14,0l0,12l14,0l0,-12zm-14,-1a1,1 0 0 0 -1,1l0,12a1,1 0 0 0 1,1l14,0a1,1 0 0 0 1,-1l0,-12a1,1 0 0 0 -1,-1l-14,0z" fill-rule="evenodd"/>
+  <path fill="#dc3545" id="svg_2" d="m7.5,14l0,-12l1,0l0,12l-1,0zm0,-5.5l-6.5,0l0,-1l6.5,0l0,1zm7.5,0l-6.5,0l0,-1l6.5,0l0,1z" fill-rule="evenodd"/>
+ </g>
+</svg>

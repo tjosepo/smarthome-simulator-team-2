@@ -1,40 +1,53 @@
-[
-  {
-    "name": "Kitchen",
-    "x": 1,
-    "y": 0,
-    "south": "door",
-    "north": "window"
-  },
-  {
-    "name": "Dining",
-    "x": 1,
-    "y": 1,
-    "north": "door"
-  },
-  {
-    "name": "Great Room",
-    "x": 1,
-    "y": 2,
-    "heigth": 2,
-    "north": "door"
-  },
-  {
-    "name": "Garage",
-    "x": 0,
-    "y": 2,
-    "north": "door"
-  },
-  {
-    "name": "Bed Room",
-    "x": 2,
-    "y": 1,
-    "north": "door"
-  },
-  {
-    "name": "Master Bed Room",
-    "x": 2,
-    "y": 2,
-    "north": "door"
-  }
-]
+{ 
+  "rooms":
+  [
+    {
+      "name": "Kitchen",
+      "x": 1,
+      "y": 0,
+      "doors": 1,
+      "windows": 2,
+      "lights": 1
+
+    },
+    {
+      "name": "Dining",
+      "x": 1,
+      "y": 1,
+      "doors": 1,
+      "windows": 2,
+      "lights": 1
+    },
+    {
+      "name": "Great Room",
+      "x": 1,
+      "y": 2,
+      "height": 2,
+      "doors": 4,
+      "windows": 2,
+      "lights": 1
+    },
+    {
+      "name": "Garage",
+      "x": 0,
+      "y": 2,
+      "doors": 1,
+      "windows": 1,
+      "lights": 1
+    },
+    {
+      "name": "Bed Room",
+      "x": 2,
+      "y": 1,
+      "doors": 1,
+      "windows": 2
+    },
+    {
+      "name": "Master Bed Room",
+      "x": 2,
+      "y": 2,
+      "doors": 1,
+      "windows": 3
+    }
+  ]
+}

@@ -5,6 +5,13 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SimulationParametersTest {
+    private SimulationParameters testParam;
+
+
+    @BeforeEach
+    void BeforeEachSimulationPerametersTest() {
+        testParam = new SimulationParameters();
+    }
 
     @Test
     void should_add_user() {

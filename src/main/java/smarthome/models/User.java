@@ -1,5 +1,8 @@
 package smarthome.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Class of type User.
  */
@@ -7,7 +10,7 @@ public class User{
     /**
      * Creating a private int called id.
      */
-    private int id = 0;
+    private int id;
     /**
      * Creating a private int called id.
      */
@@ -33,10 +36,9 @@ public class User{
      */
 
     public User(String name,String role) {
-        id = 1 + numUsers;
+        id = numUsers++;
         this.name = name;
         this.role = role;
-        numUsers++;
     }
 
     /**
@@ -64,6 +66,15 @@ public class User{
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Getter method that will get the name.
+     *
+     * @param the role
+     */
+    public String getRole() {
+        return role;
     }
 
     /**

@@ -8,13 +8,23 @@ interface Props {
 }
 
 function DeleteUserModal({ userToDelete, users, setUsers }: Props) {
-  const deleteUser = (e: React.FormEvent) => {
+  const deleteUser = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!userToDelete) return;
-    setUsers([...users.filter((user) => user !== userToDelete)]);
 
     const form = e.target as HTMLFormElement;
+    const data = new FormData(form);
+    data.append('id', userToDelete.id.toString());
+
+    const response = await fetch('http://localhost:7000/api/delete-user', {
+      method: 'POST',
+      body: data
+    });
+    
+    const users = await response.json() as User[];
+
+    setUsers(users);
     (form.querySelector('[data-dismiss="modal"]') as HTMLElement).click();
   }
 
