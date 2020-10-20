@@ -8,8 +8,8 @@ import smarthome.models.Window;
 import java.util.ArrayList;
 
 public class SimulationContext {
-    HouseLayout houseLayout;
-    SimulationParameters simulationParameters;
+    public HouseLayout houseLayout;
+    public SimulationParameters simulationParameters;
 
     public SimulationContext(Javalin app) {
         houseLayout = new HouseLayout(app);
