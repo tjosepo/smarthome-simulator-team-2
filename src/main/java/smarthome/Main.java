@@ -6,7 +6,7 @@ import smarthome.controllers.SimulationContext;
 import smarthome.controllers.SimulationParameters;
 
 /**
- * The type Main.
+ * Main class.
  */
 public class Main {
     /**

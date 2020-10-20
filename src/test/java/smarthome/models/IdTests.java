@@ -4,8 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * The type Id tests.
+ */
 public class IdTests {
 
+    /**
+     * Id increment test.
+     */
     @Test
     public void ID_Increment_Test() {
         User user0 = new User("John", "Parent");

@@ -3,7 +3,9 @@ package smarthome.controllers;
 import org.junit.jupiter.api.Test;
 import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Test class used to test the SimulationParameters class to make sure it works as intended
+ * */
 class SimulationParametersTest {
     private SimulationParameters testParam;
 

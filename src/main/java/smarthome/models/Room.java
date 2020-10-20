@@ -31,19 +31,34 @@ public class Room {
      */
    private Door[] doors;
 
+    /**
+     * The X.
+     */
     public int x;
+    /**
+     * The Y.
+     */
     public int y;
+    /**
+     * The Width.
+     */
     public int width;
+    /**
+     * The Height.
+     */
     public int height;
 
     /**
      * Instantiates a new Room with the following parameters.
      *
-     *
      * @param name    the name
      * @param windows the windows
      * @param lights  the lights
      * @param doors   the doors
+     * @param x       the x
+     * @param y       the y
+     * @param width   the width
+     * @param height  the height
      */
     public Room(String name, Window[] windows, Light[] lights, Door[] doors, int x, int y, int width, int height) {
         id = numRooms++;
@@ -96,12 +111,11 @@ public class Room {
     /**
      * Getter method that returns the array doors.
      *
-     * @return  doors
+     * @return doors door [ ]
      */
     public Door[] getDoors() {
         return doors;
     }
-
 
 
     /**

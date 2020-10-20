@@ -31,10 +31,9 @@ public class User{
     /**
      * Instantiates a new User.
      *
-     * @param name     the String name
-     * @param role     the user's role
+     * @param name the String name
+     * @param role the user's role
      */
-
     public User(String name,String role) {
         id = numUsers++;
         this.name = name;
@@ -72,6 +71,7 @@ public class User{
      * Getter method that will get the name.
      *
      * @param the role
+     * @return the role
      */
     public String getRole() {
         return role;

@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class used to test the HouseLayout class to make sure it works as intended
+ * */
 public class HouseLayoutTests {
     private static HouseLayout houseLayout = new HouseLayout();
 

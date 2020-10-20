@@ -10,7 +10,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+/**
+ * Test class to test javelin and make sure it works as intended
+ * */
 class ExampleModuleTest {
     private static Javalin app;
 

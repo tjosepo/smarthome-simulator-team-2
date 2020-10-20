@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/**
+ * Test class used to test the SimulationContext class to make sure it works as intended
+ * */
 public class SimulationContextTests {
     private static SimulationContext simulationContext;
 
