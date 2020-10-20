@@ -10,7 +10,7 @@ function Dashboard() {
 
   return (
     <div className="Dashboard container-fluid">
-      <SimulationContext {...{ simulating, setSimulating, users, setUsers, rooms }} />
+      <SimulationContext {...{ simulating, setSimulating, users, setUsers, rooms, setRooms }} />
       <ModuleController {...{ simulating, users, setUsers, setRooms }} />
       <HouseView {...{ users, rooms }} />
     </div>

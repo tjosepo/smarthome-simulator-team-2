@@ -3,6 +3,7 @@ package smarthome.controllers;
 import io.javalin.Javalin;
 import smarthome.models.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class HouseLayout {
@@ -45,5 +46,9 @@ public class HouseLayout {
             }
         }
         return null;
+    }
+
+    public ArrayList<Room> getRooms() {
+        return rooms;
     }
 }

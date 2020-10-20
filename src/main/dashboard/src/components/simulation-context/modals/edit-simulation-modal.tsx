@@ -4,28 +4,45 @@ import { User, Room } from '../../../models';
 interface Props {
   users: User[],
   rooms: Room[],
-  setUsers: React.Dispatch<React.SetStateAction<User[]>>
+  setUsers: React.Dispatch<React.SetStateAction<User[]>>,
+  setRooms: React.Dispatch<React.SetStateAction<Room[]>>
 }
 
-function EditSimulationModal({ users, setUsers, rooms }: Props) {
+function EditSimulationModal({ users, setUsers, rooms, setRooms }: Props) {
 
   const editSimulation = async (e: React.FormEvent) => {
     e.preventDefault();
-
     const form = e.target as HTMLFormElement;
     const data = new FormData(form);
 
+    if (users.length > 0) moveUsers(data);
+    if (rooms.length > 0) blockWindows(data);
+
+    (form.querySelector('[data-dismiss="modal"]') as HTMLElement).click();
+    form.reset();
+  }
+
+
+  const moveUsers = async (data: FormData) => {
     const response = await fetch('http://localhost:7000/api/move-users', {
       method: 'POST',
       body: data
     });
     
     const users = await response.json() as User[];
-    console.log(users);
 
     setUsers(users);
-    (form.querySelector('[data-dismiss="modal"]') as HTMLElement).click();
-    form.reset();
+  }
+
+  const blockWindows = async (data: FormData) => {
+    const response = await fetch('http://localhost:7000/api/block-windows', {
+      method: 'POST',
+      body: data
+    });
+    
+    const rooms = await response.json() as Room[];
+
+    setRooms(rooms);
   }
 
   return (
@@ -64,8 +81,8 @@ function EditSimulationModal({ users, setUsers, rooms }: Props) {
                   {rooms.length > 0 ?
                     room.windows.map((window) =>
                       <div key={`blockWindow${window.id}`} className="form-check">
-                        <input className="form-check-input" type="checkbox" value="" id={`blockWindow${window.id}`} />
-                        <label className="form-check-label" htmlFor={`blockWindow${window.id}`}>
+                        <input className="form-check-input" type="checkbox" value="true" id={`BlockWindow${window.id}`} name={`blockWindow${window.id}`} defaultChecked={window.blocked}/>
+                        <label className="form-check-label" htmlFor={`BlockWindow${window.id}`}>
                           Block window {window.id}
                         </label>
                       </div>

@@ -5,7 +5,7 @@ import DoorIcon from '../../icons/door.svg';
 import LightIcon from '../../icons/light.svg';
 import PersonIcon from '../../icons/person.svg';
 import WindowIcon from '../../icons/window.svg';
-
+import WindowBlockedIcon from '../../icons/window-blocked.svg';
 
 interface Props {
   rooms: Room[],
@@ -39,37 +39,36 @@ function HouseView({ rooms, users }: Props) {
                 </div>
 
                 <div className="room-doors">
-                  {room.doors.map((door) => 
+                  {room.doors.map((door) =>
                     <img key={door.id} src={DoorIcon} alt="Door icon" />
                   )}
                 </div>
 
                 <div className="room-lights">
-                  {room.lights.map((light) => 
+                  {room.lights.map((light) =>
                     <img key={light.id} src={LightIcon} alt="Light icon" />
                   )}
                 </div>
 
                 <div className="room-windows">
-                  {room.windows.map((window) => 
-                    <img key={window.id} src={WindowIcon} alt="Light icon" />
+                  {room.windows.map((window) =>
+                    <img key={window.id} src={window.blocked ? WindowBlockedIcon : WindowIcon} alt="Light icon" />
                   )}
                 </div>
 
                 <div className="room-people">
                   {users.map((user) =>
                     user.location?.id === room.id &&
-                      <img key={user.id} src={PersonIcon} alt="Light icon" />
+                    <img key={user.id} src={PersonIcon} alt="Light icon" />
                   )}
                 </div>
-
-            </div>
+              </div>
             )
           )}
         </div>
         :
         <div className="empty-house text-muted">
-          Not available 
+          Not available
         </div>
       }
       <p className="description h6">House View</p>

@@ -3,6 +3,7 @@ package smarthome.controllers;
 import io.javalin.Javalin;
 import smarthome.models.User;
 import smarthome.models.Room;
+import smarthome.models.Window;
 
 import java.util.ArrayList;
 
@@ -22,11 +23,36 @@ public class SimulationContext {
             }
             ctx.json(users);
         });
+
+        app.post("/api/block-windows", ctx -> {
+            ArrayList<Room> rooms = houseLayout.getRooms();
+            for(Room room : rooms) {
+                for(Window window : room.getWindows()) {
+                    boolean shouldBlockWindow = Boolean.parseBoolean(ctx.formParam("blockWindow" + window.getId()));
+                    if (shouldBlockWindow) {
+                        blockWindow(window.getId());
+                    }
+                }
+            }
+            ctx.json(rooms);
+        });
     }
 
     private void moveUser(int userId , int roomId) {
         User user = simulationParameters.getUser(userId);
         Room room = houseLayout.getRoom(roomId);
         user.setLocation(room);
+    }
+
+    private void blockWindow(int id) {
+        ArrayList<Room> rooms = houseLayout.getRooms();
+        for(Room room : rooms) {
+            for (Window window : room.getWindows()) {
+                if (window.getId() == id) {
+                    window.setBlocked(true);
+                    break;
+                }
+            }
+        }
     }
 }

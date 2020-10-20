@@ -8,10 +8,11 @@ interface Props {
   setSimulating: React.Dispatch<React.SetStateAction<boolean>>,
   users: User[],
   setUsers: React.Dispatch<React.SetStateAction<User[]>>,
-  rooms: Room[]
+  rooms: Room[],
+  setRooms: React.Dispatch<React.SetStateAction<Room[]>>
 }
 
-function SimulationContext({ simulating, setSimulating, users, setUsers, rooms }: Props) {
+function SimulationContext({ simulating, setSimulating, users, setUsers, rooms, setRooms }: Props) {
   return (
     <div className="SimulationContext card">
       <div className="card-header">
@@ -26,7 +27,7 @@ function SimulationContext({ simulating, setSimulating, users, setUsers, rooms }
       </div>
 
       <Fragment>
-        <EditSimulationModal {...{ users, rooms, setUsers }} />
+        <EditSimulationModal {...{ users, rooms, setUsers, setRooms }} />
       </Fragment>
     </div>
   );
