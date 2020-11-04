@@ -1,31 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { WEBSOCKET_CONSOLE_OUTPUT } from '../../queries';
 import './style.scss';
 
 function OutputConsole() {
+  const [output, setOutput] = useState<string>('');
+  let message = ''; // Required. Acts a buffer for when multiple messages are received at once.
+  let websocket: WebSocket;
+
+  const newConnection = () => {
+    websocket = new WebSocket(WEBSOCKET_CONSOLE_OUTPUT);
+    websocket.onmessage = receiveMessage;
+    websocket.onclose = receiveClose;
+  }
+
+  const receiveMessage = (event: MessageEvent) => {
+    message += `${event.data}\n`;
+    setOutput(message);
+  }
+
+  const receiveClose = (event: CloseEvent) => {
+    message += `Connection with server lost. Trying to reconnect in 5 seconds.\n`;
+    setOutput(message);
+    setTimeout(newConnection, 5000);
+  }
+
+  useEffect(() => newConnection(), []);
+
   return (
     <div className="OutputConsole">
-      <code>
-        10:07:59: Executing task 'Main.main()'...\n
-        \n
-        Task :compileJava\n
-        Task :processResources NO-SOURCE\n
-        Task :classes\n
-        \n
-        Task :Main.main()\n
-        [main] INFO io.javalin.Javalin -\n
-        __                      __ _\n
-        / /____ _ _   __ ____ _ / /(_)____\n
-        __  / // __ `/| | / // __ `// // // __ \\n
-        / /_/ // /_/ / | |/ // /_/ // // // / / /\n
-        \____/ \__,_/  |___/ \__,_//_//_//_/ /_/\n
-        \n
-        https://javalin.io/documentation\n
-        \n
-        [main] INFO org.eclipse.jetty.util.log - Logging initialized @243ms to org.eclipse.jetty.util.log.Slf4jLog\n
-        [main] INFO io.javalin.Javalin - Starting Javalin ...\n
-        [main] INFO io.javalin.Javalin - Listening on http://localhost:7000/\n
-        [main] INFO io.javalin.Javalin - Javalin started in 287ms \o/\n
-      </code>
+      <pre>
+        <code>
+          {output || 'Connecting to server...'}
+        </code>
+      </pre>
     </div>
   );
 }

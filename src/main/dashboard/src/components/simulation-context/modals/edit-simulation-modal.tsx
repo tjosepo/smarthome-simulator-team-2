@@ -1,5 +1,6 @@
 import React from 'react';
 import { User, Room } from '../../../models';
+import { POST_MOVE_USERS, POST_BLOCK_WINDOWS } from '../../../queries';
 
 interface Props {
   users: User[],
@@ -24,22 +25,22 @@ function EditSimulationModal({ users, setUsers, rooms, setRooms }: Props) {
 
 
   const moveUsers = async (data: FormData) => {
-    const response = await fetch('http://localhost:7000/api/move-users', {
+    const response = await fetch(POST_MOVE_USERS, {
       method: 'POST',
       body: data
     });
-    
+
     const users = await response.json() as User[];
 
     setUsers(users);
   }
 
   const blockWindows = async (data: FormData) => {
-    const response = await fetch('http://localhost:7000/api/block-windows', {
+    const response = await fetch(POST_BLOCK_WINDOWS, {
       method: 'POST',
       body: data
     });
-    
+
     const rooms = await response.json() as Room[];
 
     setRooms(rooms);
@@ -81,7 +82,7 @@ function EditSimulationModal({ users, setUsers, rooms, setRooms }: Props) {
                   {rooms.length > 0 ?
                     room.windows.map((window) =>
                       <div key={`blockWindow${window.id}`} className="form-check">
-                        <input className="form-check-input" type="checkbox" value="true" id={`BlockWindow${window.id}`} name={`blockWindow${window.id}`} defaultChecked={window.blocked}/>
+                        <input className="form-check-input" type="checkbox" value="true" id={`BlockWindow${window.id}`} name={`blockWindow${window.id}`} defaultChecked={window.blocked} />
                         <label className="form-check-label" htmlFor={`BlockWindow${window.id}`}>
                           Block window {window.id}
                         </label>

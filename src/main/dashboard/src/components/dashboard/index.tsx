@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SimulationContext, ModuleController, HouseView } from '../';
 import { User, Room } from '../../models';
+import OutputConsole from '../output-console';
 import './style.scss';
 
 function Dashboard() {
@@ -13,6 +14,7 @@ function Dashboard() {
       <SimulationContext {...{ simulating, setSimulating, users, setUsers, rooms, setRooms }} />
       <ModuleController {...{ simulating, users, setUsers, setRooms }} />
       <HouseView {...{ users, rooms }} />
+      <OutputConsole />
     </div>
   );
 }

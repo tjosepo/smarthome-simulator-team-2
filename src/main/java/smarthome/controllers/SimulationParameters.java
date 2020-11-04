@@ -61,12 +61,14 @@ public class SimulationParameters {
             String role = ctx.formParam("role");
             addUser(name, role);
             ctx.json(users);
+            Console.print("User \"" + name + "\" has been added.");
         });
 
         app.post("/api/delete-user", ctx -> {
             int id = Integer.parseInt(ctx.formParam("id"));
-            removeUser(id);
+            User user = removeUser(id);
             ctx.json(users);
+            Console.print("User \"" + user.getName() + "\" has been removed.");
         });
     }
 
@@ -93,7 +95,7 @@ public class SimulationParameters {
      *
      * @param id The id of the user to be removed
      */
-    public void removeUser(int id) {
+    public User removeUser(int id) {
         User userToRemove = null;
         for (User user : users) {
             if (user.getId() == id) {
@@ -104,6 +106,8 @@ public class SimulationParameters {
         if (userToRemove != null) {
             users.remove(userToRemove);
         }
+
+        return userToRemove;
     }
 
     /**

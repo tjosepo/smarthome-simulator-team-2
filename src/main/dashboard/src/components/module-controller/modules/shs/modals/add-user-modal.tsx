@@ -1,5 +1,6 @@
 import React from 'react';
 import { User } from '../../../../../models';
+import { POST_ADD_USER } from '../../../../../queries';
 
 interface Props {
   users: User[],
@@ -13,11 +14,11 @@ function AddUserModal({ users, setUsers }: Props) {
     const form = e.target as HTMLFormElement;
     const data = new FormData(form);
 
-    const response = await fetch('http://localhost:7000/api/add-user', {
+    const response = await fetch(POST_ADD_USER, {
       method: 'POST',
       body: data
     });
-    
+
     const users = await response.json() as User[];
     console.log(users);
 
