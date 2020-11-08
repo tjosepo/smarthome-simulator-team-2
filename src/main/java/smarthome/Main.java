@@ -1,27 +1,22 @@
 package smarthome;
 
-import io.javalin.Javalin;
-import smarthome.controllers.HouseLayout;
-import smarthome.controllers.SimulationContext;
-import smarthome.controllers.SimulationParameters;
+import smarthome.controllers.SmartHomeSimulator;
+import smarthome.controllers.modules.SmartHomeCore;
+import smarthome.controllers.modules.SmartHomeSecurity;
 
 /**
  * Main class.
  */
 public class Main {
+
     /**
      * The entry point of application.
      *
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        Javalin app = Javalin.create(config -> {
-            config.defaultContentType = "application/json";
-            config.enableCorsForAllOrigins();
-        }).start(7000);
-        app.get("/", ctx -> ctx.result("Hello World"));
-        new ExampleModule(app);
-        new SimulationContext(app);
-
+        SmartHomeSimulator shs = new SmartHomeSimulator();
+        shs.loadModule(new SmartHomeCore());
+        shs.loadModule(new SmartHomeSecurity());
     }
 }

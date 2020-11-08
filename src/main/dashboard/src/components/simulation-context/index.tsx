@@ -1,18 +1,22 @@
 import React, { Fragment } from 'react';
-import { Room, User } from '../../models';
-import EditSimulationModal from './modals/edit-simulation-modal';
+import { User } from '../../models';
 import './style.scss';
 
 interface Props {
+  loggedAsId: number,
+  users: User[],
   simulating: boolean,
   setSimulating: React.Dispatch<React.SetStateAction<boolean>>,
-  users: User[],
-  setUsers: React.Dispatch<React.SetStateAction<User[]>>,
-  rooms: Room[],
-  setRooms: React.Dispatch<React.SetStateAction<Room[]>>
+  children: JSX.Element
 }
 
-function SimulationContext({ simulating, setSimulating, users, setUsers, rooms, setRooms }: Props) {
+function SimulationContext({ loggedAsId, users, simulating, setSimulating, children }: Props) {
+
+  let loggedAs: User | undefined;
+  if (loggedAsId !== -1) {
+    loggedAs = users.find((user) => user.id === loggedAsId);
+  }
+
   return (
     <div className="SimulationContext card">
       <div className="card-header">
@@ -23,11 +27,26 @@ function SimulationContext({ simulating, setSimulating, users, setUsers, rooms, 
         <label className="btn btn-outline-primary w-100 mb-2" htmlFor="btn-check-2">
           {simulating ? "On" : "Off"}
         </label>
-        <a href="#EditSimulationModal" data-toggle="modal">Edit simulation</a>
-      </div>
+        <a className="edit-simulation mb-4" href="#EditSimulationModal" data-toggle="modal">Edit simulation</a>
 
+        <img className="silhouette mb-2" src="./images/user-silhouette.png" alt="User silhouette" />
+
+        {loggedAs ? <>
+          <p className="h6 mb-0">Role</p>
+          <p className="user-role lead">{loggedAs.role}</p>
+
+          <p className="h6 mb-0">Name</p>
+          <p className="user-name lead">{loggedAs.name}</p>
+
+          <p className="h6 mb-0">Location</p>
+          <p className="user-location lead">{loggedAs.location ? loggedAs.location.name : 'Outside'}</p>
+        </>
+          : <p>Not logged in.</p>
+        }
+
+      </div>
       <Fragment>
-        <EditSimulationModal {...{ users, rooms, setUsers, setRooms }} />
+        {children}
       </Fragment>
     </div>
   );

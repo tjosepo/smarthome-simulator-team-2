@@ -1,17 +1,23 @@
 import React from 'react';
 import SHS from './modules/shs';
+import SHC from './modules/shc';
+import SHP from './modules/shp';
 import { User, Room } from '../../models';
 import 'bootstrap/js/dist/tab.js';
 import './style.scss';
 
 interface Props {
   simulating: boolean,
+  awayMode: boolean,
   users: User[],
+  rooms: Room[],
   setUsers: React.Dispatch<React.SetStateAction<User[]>>,
-  setRooms: React.Dispatch<React.SetStateAction<Room[]>>
+  setRooms: React.Dispatch<React.SetStateAction<Room[]>>,
+  setLoggedAsId: React.Dispatch<React.SetStateAction<number>>,
+  setAwayMode: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-function ModuleController({ simulating, users, setUsers, setRooms }: Props) {
+function ModuleController({ simulating, users, awayMode, rooms, setUsers, setRooms, setLoggedAsId, setAwayMode }: Props) {
   return (
     <div className="ModuleController">
       <ul className="nav nav-tabs" id="moduleTab" role="tablist">
@@ -30,15 +36,13 @@ function ModuleController({ simulating, users, setUsers, setRooms }: Props) {
       </ul>
       <div className="tab-content card" id="moduleTabContent">
         <div className="tab-pane card-body fade show active" id="shs" role="tabpanel" aria-labelledby="shs-tab">
-          <SHS {...{ simulating, users, setUsers, setRooms }} />
+          <SHS {...{ simulating, users, setUsers, setRooms, setLoggedAsId }} />
         </div>
         <div className="tab-pane card-body fade" id="shc" role="tabpanel" aria-labelledby="shc-tab">
-          <h5 className="card-title">Smart Home Core</h5>
-          <p className="card-text">Not available.</p>
+          <SHC {...{ rooms, setRooms }} />
         </div>
         <div className="tab-pane card-body fade" id="shp" role="tabpanel" aria-labelledby="shp-tab">
-          <h5 className="card-title">Smart Home Security</h5>
-          <p className="card-text">Not available.</p>
+          <SHP {...{ awayMode, setAwayMode, rooms, setRooms }} />
         </div>
         <div className="tab-pane card-body fade" id="shh" role="tabpanel" aria-labelledby="shh-tab">
           <h5 className="card-title">Smart Heating</h5>

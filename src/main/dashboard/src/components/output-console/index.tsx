@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { WEBSOCKET_CONSOLE_OUTPUT } from '../../queries';
 import './style.scss';
 
 function OutputConsole() {
   const [output, setOutput] = useState<string>('');
+  const consoleEl = useRef<HTMLPreElement>(null);
   let message = ''; // Required. Acts a buffer for when multiple messages are received at once.
   let websocket: WebSocket;
 
@@ -24,11 +25,18 @@ function OutputConsole() {
     setTimeout(newConnection, 5000);
   }
 
-  useEffect(() => newConnection(), []);
+  const scrollToBottom = () => {
+    if (consoleEl.current) {
+      consoleEl.current.scrollTop = consoleEl.current.scrollHeight;
+    }
+  }
+
+  useEffect(newConnection, []);
+  useEffect(scrollToBottom, [output]);
 
   return (
     <div className="OutputConsole">
-      <pre>
+      <pre ref={consoleEl}>
         <code>
           {output || 'Connecting to server...'}
         </code>

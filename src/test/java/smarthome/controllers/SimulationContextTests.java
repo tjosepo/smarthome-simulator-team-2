@@ -4,6 +4,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import io.javalin.Javalin;
+import io.javalin.plugin.json.JavalinJson;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import smarthome.models.User;
@@ -57,6 +58,7 @@ public class SimulationContextTests {
 
         assertEquals("Kitchen", users.get(0).getLocation().getName());
         assertEquals("Dining", users.get(1).getLocation().getName());
+        JavalinJson.fromJson('hello', Class)
     }
 
 }

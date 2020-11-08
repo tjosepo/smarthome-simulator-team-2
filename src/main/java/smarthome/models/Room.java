@@ -1,17 +1,17 @@
 package smarthome.models;
 
-import java.util.Arrays;
+import java.util.List;
 
 /**
  * Class of type Room.
  */
 public class Room {
     /**
-     *  Creating a private int called id.
+     * Creating a private int called id.
      */
     private int id;
     /**
-     *  Creating a private static int called numRooms.
+     * Creating a private static int called numRooms.
      */
     private static int numRooms = 0;
     /**
@@ -21,15 +21,15 @@ public class Room {
     /**
      * Creating private array of window objects called windows.
      */
-   private Window[] windows;
+    private List<Window> windows;
     /**
      * Creating private array of light objects called lights.
      */
-   private Light[] lights;
+    private List<Light> lights;
     /**
      * Creating a private array of door objects called doors.
      */
-   private Door[] doors;
+    private List<Door> doors;
 
     /**
      * The X.
@@ -60,7 +60,7 @@ public class Room {
      * @param width   the width
      * @param height  the height
      */
-    public Room(String name, Window[] windows, Light[] lights, Door[] doors, int x, int y, int width, int height) {
+    public Room(String name, List<Window> windows, List<Light> lights, List<Door> doors, int x, int y, int width, int height) {
         id = numRooms++;
         this.name = name;
         this.windows = windows;
@@ -95,7 +95,7 @@ public class Room {
      *
      * @return the window [ ]
      */
-    public Window[] getWindows() {
+    public List<Window> getWindows() {
         return windows;
     }
 
@@ -104,7 +104,7 @@ public class Room {
      *
      * @return the light [ ]
      */
-    public Light[] getLights() {
+    public List<Light> getLights() {
         return lights;
     }
 
@@ -113,7 +113,7 @@ public class Room {
      *
      * @return doors door [ ]
      */
-    public Door[] getDoors() {
+    public List<Door> getDoors() {
         return doors;
     }
 
@@ -132,7 +132,7 @@ public class Room {
      *
      * @param windows the windows
      */
-    public void setWindows(Window[] windows) {
+    public void setWindows(List<Window> windows) {
         this.windows = windows;
     }
 
@@ -141,7 +141,7 @@ public class Room {
      *
      * @param lights the lights
      */
-    public void setLights(Light[] lights) {
+    public void setLights(List<Light> lights) {
         this.lights = lights;
     }
 
@@ -150,12 +150,13 @@ public class Room {
      *
      * @param doors the doors
      */
-    public void setDoors(Door[] doors) {
+    public void setDoors(List<Door> doors) {
         this.doors = doors;
     }
 
     /**
      * To String method that will display the features of the room
+     *
      * @return String
      */
     @Override
@@ -163,9 +164,9 @@ public class Room {
         return "Room{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", windows=" + Arrays.toString(windows) +
-                ", lights=" + Arrays.toString(lights) +
-                ", doors=" + Arrays.toString(doors) +
+                ", windows=" + windows +
+                ", lights=" + lights +
+                ", doors=" + doors +
                 '}';
     }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, Room } from '../../../models';
+import { User, Room, SHS } from '../../../models';
 import { POST_MOVE_USERS, POST_BLOCK_WINDOWS } from '../../../queries';
 
 interface Props {
@@ -30,9 +30,11 @@ function EditSimulationModal({ users, setUsers, rooms, setRooms }: Props) {
       body: data
     });
 
-    const users = await response.json() as User[];
-
+    const shs = await response.json() as SHS;
+    const users = shs.parameters.users;
+    const rooms = shs.house.rooms;
     setUsers(users);
+    setRooms(rooms);
   }
 
   const blockWindows = async (data: FormData) => {

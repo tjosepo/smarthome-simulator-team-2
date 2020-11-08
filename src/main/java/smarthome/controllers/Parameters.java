@@ -1,14 +1,16 @@
 package smarthome.controllers;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.javalin.Javalin;
-import smarthome.models.*;
-import java.util.Date;
+import io.javalin.http.Context;
+import smarthome.models.User;
+
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Class of type SimulationParameters
  */
-public class SimulationParameters {
+public class Parameters {
     private ArrayList<User> users = new ArrayList<>();
     private Date date;
     private String location;
@@ -55,7 +57,7 @@ public class SimulationParameters {
      *
      * @param app Javalin object
      */
-    public SimulationParameters(Javalin app) {
+    public Parameters(Javalin app) {
         app.post("/api/add-user", ctx -> {
             String name = ctx.formParam("name");
             String role = ctx.formParam("role");
@@ -70,12 +72,17 @@ public class SimulationParameters {
             ctx.json(users);
             Console.print("User \"" + user.getName() + "\" has been removed.");
         });
+
+        app.post("/api/log-in-as", ctx -> {
+            logInAs(ctx);
+            ctx.json(loggedAs);
+        });
     }
 
     /**
      * Class constructor that doesn't expose an API.
      */
-    public SimulationParameters() {
+    public Parameters() {
     }
 
 
@@ -86,7 +93,7 @@ public class SimulationParameters {
      * @param role Role of the new user to add
      */
     public void addUser(String name, String role) {
-        if(role.equals("Parent") || role.equals("Child") || role.equals("Guest") || role.equals("Stranger"))
+        if (role.equals("Parent") || role.equals("Child") || role.equals("Guest") || role.equals("Stranger"))
             users.add(new User(name, role));
     }
 
@@ -145,14 +152,15 @@ public class SimulationParameters {
 
     /**
      * Logs in as a user
-     *
-     * @param id The ID of the user to be logged in as
      */
-    public void logInAs(int id) {
-        for(User user : users) {
-            if (user.getId() == id)
-                loggedAs = user;
+    public void logInAs(Context ctx) {
+        int id = Integer.parseInt(ctx.formParam("id"));
+        if (id == -1) {
+            Console.print("Logged off.");
         }
+        User user = getUser(id);
+        loggedAs = user;
+        Console.print("Logged in as " + user.getName() + ".");
     }
 
 }

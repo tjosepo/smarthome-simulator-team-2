@@ -7,7 +7,7 @@ public class Door {
     /**
      * Creating a private in called id.
      */
-   private int id = 0;
+    private int id = 0;
     /**
      * Creating a private static int called numDoors.
      */
@@ -15,13 +15,12 @@ public class Door {
     /**
      * Creating a private boolean called opened.
      */
-    private boolean opened;
+    private boolean opened = false;
 
     /**
      * Default constructor that will increment the static variable id by 1 every time a door is created, and initializing boolean opened to false
      */
-    public Door()
-    {
+    public Door() {
         id = 1 + numDoors;
         this.opened = false;
         numDoors++;
@@ -32,8 +31,7 @@ public class Door {
      *
      * @param opened the boolean opened
      */
-    public Door(boolean opened)
-    {
+    public Door(boolean opened) {
         id = 1 + numDoors;
         this.opened = opened;
         numDoors++;
@@ -49,8 +47,17 @@ public class Door {
         return id;
     }
 
+    public boolean getOpened() {
+        return opened;
+    }
+
+    public void setOpened(boolean isOpened) {
+        this.opened = isOpened;
+    }
+
     /**
      * To String method that will display the features of the room
+     *
      * @return String
      */
     @Override

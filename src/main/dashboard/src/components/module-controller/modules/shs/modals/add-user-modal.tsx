@@ -20,8 +20,6 @@ function AddUserModal({ users, setUsers }: Props) {
     });
 
     const users = await response.json() as User[];
-    console.log(users);
-
     setUsers(users);
     (form.querySelector('[data-dismiss="modal"]') as HTMLElement).click();
     form.reset();

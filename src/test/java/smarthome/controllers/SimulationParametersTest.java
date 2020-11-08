@@ -7,17 +7,17 @@ import static org.junit.jupiter.api.Assertions.*;
  * Test class used to test the SimulationParameters class to make sure it works as intended
  * */
 class SimulationParametersTest {
-    private SimulationParameters testParam;
+    private Parameters testParam;
 
 
     @BeforeEach
     void BeforeEachSimulationPerametersTest() {
-        testParam = new SimulationParameters();
+        testParam = new Parameters();
     }
 
     @Test
     void should_add_user() {
-        SimulationParameters testParam = new SimulationParameters(new Date(), "TestLocation");
+        Parameters testParam = new Parameters(new Date(), "TestLocation");
         testParam.addUser("Rick", "Parent");
         assertEquals(1, testParam.getUsers().size());
         testParam.addUser("Peter", "Child");
@@ -26,7 +26,7 @@ class SimulationParametersTest {
 
     @Test
     void should_remove_user_with_corresponding_id() {
-        SimulationParameters testParam = new SimulationParameters(new Date(), "TestLocation");
+        Parameters testParam = new Parameters(new Date(), "TestLocation");
         testParam.addUser("Rick", "Parent");
         testParam.addUser("Peter", "Child");
         assertEquals(2, testParam.getUsers().size());
@@ -37,7 +37,7 @@ class SimulationParametersTest {
 
     @Test
     void should_change_date() {
-        SimulationParameters testParam = new SimulationParameters(new Date(), "TestLocation");
+        Parameters testParam = new Parameters(new Date(), "TestLocation");
         testParam.setDate(new Date(1302979200));
         Date expected = new Date(1302979200);
         assertEquals(expected, testParam.getDate());
@@ -45,7 +45,7 @@ class SimulationParametersTest {
 
     @Test
     void should_change_location() {
-        SimulationParameters testParam = new SimulationParameters(new Date(), "TestLocation");
+        Parameters testParam = new Parameters(new Date(), "TestLocation");
         assertEquals("TestLocation", testParam.getLocation());
         testParam.setLocation("NewLocation");
         assertEquals("NewLocation", testParam.getLocation());
@@ -54,7 +54,7 @@ class SimulationParametersTest {
 
     @Test
     void should_set_loggedInAs_to_a_user() {
-        SimulationParameters testParam = new SimulationParameters(new Date(), "TestLocation");
+        Parameters testParam = new Parameters(new Date(), "TestLocation");
         testParam.addUser("Rick", "Parent");
         testParam.addUser("Peter", "Child");
         testParam.logInAs(testParam.getUsers().get(0).getId());

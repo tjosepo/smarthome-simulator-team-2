@@ -1,5 +1,7 @@
 package smarthome.models;
 
+import smarthome.controllers.Console;
+
 /**
  * Class of type Window.
  */
@@ -10,26 +12,25 @@ public class Window {
     private int id;
     /**
      * Creating a private static int called numWindows
-     * */
+     */
     private static int numWindows = 0;
     /**
      * Creating a private boolean called opened
      */
-   private boolean opened;
+    private boolean opened;
     /**
      * Creating a private boolean called blocked
      */
-   private boolean blocked;
+    private boolean blocked;
 
     /**
      * Default constructor that will increment the static variable id by 1 every time a window is created, and initializing boolean opened  and blocked to false
      */
-    public Window()
-   {
-       id = numWindows++;
-       this.opened = false;
-       this.blocked = false;
-   }
+    public Window() {
+        id = numWindows++;
+        this.opened = false;
+        this.blocked = false;
+    }
 
     /**
      * Instantiates a new Window with the following parameters.
@@ -77,7 +78,12 @@ public class Window {
      * @param opened the boolean opened
      */
     public void setOpened(boolean opened) {
+        if (blocked) {
+            Console.print("[ERROR] Window is blocked.");
+            return;
+        }
         this.opened = opened;
+        Console.print((this.opened ? "Opened" : "Closed") + " window.");
     }
 
     /**
@@ -91,6 +97,7 @@ public class Window {
 
     /**
      * To String method that will display the features of the room
+     *
      * @return String
      */
 
