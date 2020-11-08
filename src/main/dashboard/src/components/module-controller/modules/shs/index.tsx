@@ -2,16 +2,19 @@ import React, { Fragment, useState } from 'react';
 import AddUserModal from './modals/add-user-modal';
 import DeleteUserModal from './modals/delete-user-modal';
 import { User, Room } from '../../../../models';
+import { saveAs } from 'file-saver';
 import 'bootstrap/js/dist/modal.js';
 import './style.scss';
+import { POST_ADD_USER, POST_LOG_IN_AS, POST_SET_HOUSE_LAYOUT } from '../../../../queries';
 
 interface Props {
   simulating: boolean,
   users: User[],
   setUsers: React.Dispatch<React.SetStateAction<User[]>>,
-  setRooms: React.Dispatch<React.SetStateAction<Room[]>>
+  setRooms: React.Dispatch<React.SetStateAction<Room[]>>,
+  setLoggedAsId: React.Dispatch<React.SetStateAction<number>>,
 }
-function SHS({ simulating, users, setUsers, setRooms }: Props) {
+function SHS({ simulating, users, setUsers, setRooms, setLoggedAsId }: Props) {
   const [filename, setFilename] = useState<string>("");
   const [userToDelete, setUserToDelete] = useState<User>();
 
@@ -22,14 +25,59 @@ function SHS({ simulating, users, setUsers, setRooms }: Props) {
     const layoutFileData = await layoutFile.text();
     setFilename(layoutFile.name);
 
-    const response = await fetch('http://localhost:7000/api/set-house-layout', {
+    const response = await fetch(POST_SET_HOUSE_LAYOUT, {
       method: 'POST',
       body: layoutFileData
     });
 
     const rooms = await response.json() as Room[];
-    console.log(rooms);
     setRooms(rooms);
+  }
+
+  const importUsers = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const files = e.target.files;
+    if (files === null) return;
+    if (files.length === 0) return;
+    const usersFile = files[0];
+    const usersFileText = await usersFile.text();
+    const users = JSON.parse(usersFileText) as User[];
+
+    users.forEach(async (user, i) => {
+      const data = new FormData();
+      data.append('name', user.name.toString());
+      data.append('role', user.role.toString());
+
+      const response = await fetch(POST_ADD_USER, {
+        method: 'POST',
+        body: data
+      });
+
+      if (i === users.length - 1) {
+        const users = await response.json() as User[];
+        setUsers(users);
+      }
+    });
+  }
+
+  const exportUsers = async () => {
+    const str = JSON.stringify(users);
+    const bytes = new TextEncoder().encode(str);
+    const blob = new Blob([bytes], { type: "application/json;charset=utf-8" });
+    saveAs(blob, 'users.json');
+  }
+
+  const logInAs = async (id: number) => {
+    const data = new FormData();
+    data.append('id', id.toString());
+
+    const response = await fetch(POST_LOG_IN_AS, {
+      method: 'POST',
+      body: data
+    });
+
+    const user = await response.json() as User;
+    setLoggedAsId(user.id);
   }
 
   return (
@@ -81,8 +129,8 @@ function SHS({ simulating, users, setUsers, setRooms }: Props) {
       <div className="row mb-2">
         <label className="col-sm-4 col-form-label" htmlFor="LogInAs">Log in as</label>
         <div className="col-sm-8">
-          <select className="form-select" aria-label="Log in as" id="LogInAs" name="logInAs" defaultValue="" disabled={simulating}>
-            <option value="" hidden></option>
+          <select className="form-select" aria-label="Log in as" id="LogInAs" name="logInAs" defaultValue="" disabled={simulating} onChange={(e) => logInAs(parseInt(e.target.value))}>
+            <option value="-1" hidden></option>
             {users.map((user) =>
               <option key={user.id} value={user.id}>{user.name}</option>
             )}
@@ -120,6 +168,18 @@ function SHS({ simulating, users, setUsers, setRooms }: Props) {
           <a href="#AddUserModal" className="list-group-item list-group-item-action text-secondary" data-toggle="modal">
             Add user
           </a>
+        }
+
+        {users.length > 0
+          ? <button type="button" className="list-group-item list-group-item-action text-secondary" onClick={exportUsers}>
+            Export users
+          </button>
+          : <>
+            <input hidden aria-hidden type="file" accept="application/JSON" onChange={importUsers} id="UserImport" disabled={simulating} />
+            <label className="list-group-item list-group-item-action text-secondary" htmlFor="UserImport" >
+              Import users
+            </label>
+          </>
         }
       </div>
 

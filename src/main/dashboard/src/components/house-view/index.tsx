@@ -5,14 +5,15 @@ import DoorIcon from '../../icons/door.svg';
 import LightIcon from '../../icons/light.svg';
 import PersonIcon from '../../icons/person.svg';
 import WindowIcon from '../../icons/window.svg';
-import WindowBlockedIcon from '../../icons/window-blocked.svg';
 
 interface Props {
   rooms: Room[],
-  users: User[]
+  users: User[],
+  simulating: boolean,
+  awayMode: boolean
 }
 
-function HouseView({ rooms, users }: Props) {
+function HouseView({ rooms, users, simulating, awayMode }: Props) {
   let house: [Room[]] = [[]]; // Wierd syntax for 2D array.
 
   const render = (rooms: Room[]) => {
@@ -31,6 +32,10 @@ function HouseView({ rooms, users }: Props) {
     <div className="HouseView">
       {house[0].length > 0 ?
         <div className="grid">
+          <div className="notices">
+            {simulating && <span className="simulating-notice">Simulating</span>}
+            {awayMode && <span className="away-mode-notice">Away Mode</span>}
+          </div>
           {house.map((row) =>
             row.map((room) => room
               && <div key={room.id} className="room" style={{ gridArea: `${room.y + 1} / ${room.x + 1} / span ${room.height || 1} / span ${room.width || 1}` }}>
@@ -40,19 +45,31 @@ function HouseView({ rooms, users }: Props) {
 
                 <div className="room-doors">
                   {room.doors.map((door) =>
-                    <img key={door.id} src={DoorIcon} alt="Door icon" />
+                    <div key={door.id} className={`icon ${door.opened && 'open'}`}>
+                      <svg className="bi" width="16" height="16" fill="currentColor">
+                        <image href={DoorIcon} />
+                      </svg>
+                    </div>
                   )}
                 </div>
 
                 <div className="room-lights">
                   {room.lights.map((light) =>
-                    <img key={light.id} src={LightIcon} alt="Light icon" />
+                    <div key={light.id} className={`icon ${light.on && 'open'}`}>
+                      <svg className="bi" width="16" height="16" fill="currentColor">
+                        <image href={LightIcon} />
+                      </svg>
+                    </div>
                   )}
                 </div>
 
                 <div className="room-windows">
                   {room.windows.map((window) =>
-                    <img key={window.id} src={window.blocked ? WindowBlockedIcon : WindowIcon} alt="Light icon" />
+                    <div key={window.id} className={`icon ${window.opened && 'open'} ${window.blocked && 'blocked'}`}>
+                      <svg className="bi" width="16" height="16" fill="currentColor">
+                        <image href={WindowIcon} />
+                      </svg>
+                    </div>
                   )}
                 </div>
 

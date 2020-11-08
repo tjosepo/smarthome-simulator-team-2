@@ -44,3 +44,11 @@ export interface RoomLayout {
   lights?: number
 }
 
+export interface SHS {
+  house: {
+    rooms: Room[]
+  },
+  parameters: {
+    users: User[]
+  }
+}

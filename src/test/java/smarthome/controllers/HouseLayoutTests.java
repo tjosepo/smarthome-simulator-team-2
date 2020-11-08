@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import smarthome.models.LayoutFile;
 import smarthome.models.Room;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Test class used to test the HouseLayout class to make sure it works as intended
  * */
 public class HouseLayoutTests {
-    private static HouseLayout houseLayout = new HouseLayout();
+    private static House house = new House();
 
     @Test
     void readLayoutFile_Test() {
@@ -22,7 +21,7 @@ public class HouseLayoutTests {
                 new LayoutFile.RoomLayout("Room 0", 0, 0, 1, 1, 1, 2, 3)
         };
 
-        ArrayList<Room> rooms = houseLayout.readLayoutFile(layoutFile);
+        ArrayList<Room> rooms = house.readLayoutFile(layoutFile);
         Room room0 = rooms.get(0);
 
         assertEquals("Room 0", room0.getName());

@@ -1,5 +1,6 @@
 import React from 'react';
 import { User } from '../../../../../models';
+import { POST_DELETE_USER } from '../../../../../queries';
 
 interface Props {
   userToDelete: User | undefined,
@@ -17,11 +18,11 @@ function DeleteUserModal({ userToDelete, users, setUsers }: Props) {
     const data = new FormData(form);
     data.append('id', userToDelete.id.toString());
 
-    const response = await fetch('http://localhost:7000/api/delete-user', {
+    const response = await fetch(POST_DELETE_USER, {
       method: 'POST',
       body: data
     });
-    
+
     const users = await response.json() as User[];
 
     setUsers(users);
