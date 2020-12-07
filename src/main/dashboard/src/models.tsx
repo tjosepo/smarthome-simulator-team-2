@@ -15,6 +15,10 @@ export interface Room {
   windows: Window[],
   doors: Door[],
   lights: Light[]
+  temperature: number,
+  overridden: false,
+  isHeating: boolean,
+  isAc: boolean
 }
 
 export interface Window {
@@ -51,4 +55,10 @@ export interface SHS {
   parameters: {
     users: User[]
   }
+}
+
+export interface HeatingZone {
+  id: string;
+  temperature: number;
+  roomsIds: number[]
 }

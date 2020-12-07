@@ -48,6 +48,11 @@ public class Room {
      */
     public int height;
 
+    public float temperature;
+    public boolean overridden = false;
+    public boolean isHeating = false;
+    public boolean isAc = false;
+
     /**
      * Instantiates a new Room with the following parameters.
      *

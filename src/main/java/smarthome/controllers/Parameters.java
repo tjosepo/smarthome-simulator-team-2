@@ -14,6 +14,7 @@ public class Parameters {
     private ArrayList<User> users = new ArrayList<>();
     private Date date;
     private String location;
+    private float outsideTemperature = 15;
     private User loggedAs;
 
     /**
@@ -57,7 +58,7 @@ public class Parameters {
      *
      * @param app Javalin object
      */
-    public Parameters(Javalin app) {
+    public Parameters(Javalin app, SmartHomeSimulator shs) {
         app.post("/api/add-user", ctx -> {
             String name = ctx.formParam("name");
             String role = ctx.formParam("role");
@@ -71,6 +72,13 @@ public class Parameters {
             User user = removeUser(id);
             ctx.json(users);
             Console.print("User \"" + user.getName() + "\" has been removed.");
+        });
+
+        app.post("/api/set-outside-temperature", ctx -> {
+            float temp = Float.parseFloat(ctx.formParam("temp"));
+            this.outsideTemperature = temp;
+            Console.print("Outside temperature has been set to " + this.outsideTemperature + " degrees Celsius.");
+            shs.notifyObservers(shs);
         });
 
         app.post("/api/log-in-as", ctx -> {
@@ -130,6 +138,10 @@ public class Parameters {
             }
         }
         return null;
+    }
+
+    public float getOutsideTemperature() {
+        return outsideTemperature;
     }
 
     /**

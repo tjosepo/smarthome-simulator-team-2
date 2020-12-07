@@ -223,4 +223,8 @@ public class SmartHomeCore implements Module, Observer {
             }
         }
     }
+
+    public void loop(int delta) {
+        return;
+    }
 }

@@ -15,9 +15,10 @@ import smarthome.models.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SmartHomeSecurity implements Module, Observer {
+public class SmartHomeSecurity implements Module, Observer, Observable {
     private boolean awayMode = false;
     private List<Integer> lightsToKeepOn = new LinkedList();
+    private List<Observer> observers = new LinkedList();
 
     @Override
     public void onLoad(Javalin app, SmartHomeSimulator shs) {
@@ -94,6 +95,7 @@ public class SmartHomeSecurity implements Module, Observer {
 
         awayMode = Boolean.parseBoolean(ctx.formParam("awayMode"));
         Console.print("Away mode set to " + this.awayMode + ".");
+        notifyObservers(this);
     }
 
     private void keepLightOn(Context ctx, SmartHomeSimulator shs) {
@@ -126,5 +128,25 @@ public class SmartHomeSecurity implements Module, Observer {
             }
         }
         Console.print("Locked everything.");
+    }
+
+    public boolean getAwayMode() {
+        return awayMode;
+    }
+
+    public void loop(int delta) {
+        return;
+    }
+
+    public void attachObserver(Observer o) {
+        observers.add(o);
+    }
+
+    public void detachObserver(Observer o) {
+        observers.remove(o);
+    }
+
+    public void notifyObservers(Observable observable) {
+        observers.forEach(observer -> observer.update(observable));
     }
 }

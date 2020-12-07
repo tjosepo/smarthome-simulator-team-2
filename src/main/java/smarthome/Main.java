@@ -2,6 +2,7 @@ package smarthome;
 
 import smarthome.controllers.SmartHomeSimulator;
 import smarthome.controllers.modules.SmartHomeCore;
+import smarthome.controllers.modules.SmartHomeHeater;
 import smarthome.controllers.modules.SmartHomeSecurity;
 
 /**
@@ -18,5 +19,6 @@ public class Main {
         SmartHomeSimulator shs = new SmartHomeSimulator();
         shs.loadModule(new SmartHomeCore());
         shs.loadModule(new SmartHomeSecurity());
+        shs.loadModule(new SmartHomeHeater());
     }
 }

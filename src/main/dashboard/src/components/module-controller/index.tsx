@@ -1,7 +1,5 @@
 import React from 'react';
-import SHS from './modules/shs';
-import SHC from './modules/shc';
-import SHP from './modules/shp';
+import { SHC, SHH, SHP, SHS } from './modules';
 import { User, Room } from '../../models';
 import 'bootstrap/js/dist/tab.js';
 import './style.scss';
@@ -11,13 +9,15 @@ interface Props {
   awayMode: boolean,
   users: User[],
   rooms: Room[],
+  loggedAsId: number,
   setUsers: React.Dispatch<React.SetStateAction<User[]>>,
   setRooms: React.Dispatch<React.SetStateAction<Room[]>>,
+  setOutsideTemp: React.Dispatch<React.SetStateAction<number>>,
   setLoggedAsId: React.Dispatch<React.SetStateAction<number>>,
   setAwayMode: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-function ModuleController({ simulating, users, awayMode, rooms, setUsers, setRooms, setLoggedAsId, setAwayMode }: Props) {
+function ModuleController({ simulating, users, awayMode, rooms, loggedAsId, setUsers, setRooms, setLoggedAsId, setAwayMode, setOutsideTemp }: Props) {
   return (
     <div className="ModuleController">
       <ul className="nav nav-tabs" id="moduleTab" role="tablist">
@@ -36,7 +36,7 @@ function ModuleController({ simulating, users, awayMode, rooms, setUsers, setRoo
       </ul>
       <div className="tab-content card" id="moduleTabContent">
         <div className="tab-pane card-body fade show active" id="shs" role="tabpanel" aria-labelledby="shs-tab">
-          <SHS {...{ simulating, users, setUsers, setRooms, setLoggedAsId }} />
+          <SHS {...{ simulating, users, setUsers, setRooms, setLoggedAsId, setOutsideTemp }} />
         </div>
         <div className="tab-pane card-body fade" id="shc" role="tabpanel" aria-labelledby="shc-tab">
           <SHC {...{ rooms, setRooms }} />
@@ -45,8 +45,7 @@ function ModuleController({ simulating, users, awayMode, rooms, setUsers, setRoo
           <SHP {...{ awayMode, setAwayMode, rooms, setRooms }} />
         </div>
         <div className="tab-pane card-body fade" id="shh" role="tabpanel" aria-labelledby="shh-tab">
-          <h5 className="card-title">Smart Heating</h5>
-          <p className="card-text">Not available.</p>
+          <SHH {...{ rooms, loggedAsId }} />
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import { User, Room } from '../../../../models';
 import { saveAs } from 'file-saver';
 import 'bootstrap/js/dist/modal.js';
 import './style.scss';
-import { POST_ADD_USER, POST_LOG_IN_AS, POST_SET_HOUSE_LAYOUT } from '../../../../queries';
+import { POST_ADD_USER, POST_LOG_IN_AS, POST_SET_HOUSE_LAYOUT, POST_SET_OUTSIDE_TEMPERATURE } from '../../../../queries';
 
 interface Props {
   simulating: boolean,
@@ -13,8 +13,9 @@ interface Props {
   setUsers: React.Dispatch<React.SetStateAction<User[]>>,
   setRooms: React.Dispatch<React.SetStateAction<Room[]>>,
   setLoggedAsId: React.Dispatch<React.SetStateAction<number>>,
+  setOutsideTemp: React.Dispatch<React.SetStateAction<number>>,
 }
-function SHS({ simulating, users, setUsers, setRooms, setLoggedAsId }: Props) {
+function SHS({ simulating, users, setUsers, setRooms, setLoggedAsId, setOutsideTemp }: Props) {
   const [filename, setFilename] = useState<string>("");
   const [userToDelete, setUserToDelete] = useState<User>();
 
@@ -67,6 +68,19 @@ function SHS({ simulating, users, setUsers, setRooms, setLoggedAsId }: Props) {
     saveAs(blob, 'users.json');
   }
 
+  const changeOutsideTemperature = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const input = e.target as HTMLInputElement;
+    const value = isNaN(input.valueAsNumber) ? 0 : input.valueAsNumber;
+    const data = new FormData();
+    data.append('temp', value.toString());
+    fetch(POST_SET_OUTSIDE_TEMPERATURE, {
+      method: 'POST',
+      body: data
+    })
+    setOutsideTemp(value);
+  }
+
   const logInAs = async (id: number) => {
     const data = new FormData();
     data.append('id', id.toString());
@@ -113,7 +127,7 @@ function SHS({ simulating, users, setUsers, setRooms, setLoggedAsId }: Props) {
         <label className="col-sm-4 col-form-label" htmlFor="Temperature">Outside temperature</label>
         <div className="col-sm-8">
           <div className="input-group">
-            <input id="Temperature" type="number" className="form-control" aria-label="Temperature" disabled={simulating} />
+            <input id="Temperature" type="number" className="form-control" aria-label="Temperature" disabled={simulating} defaultValue="15" onChange={changeOutsideTemperature} />
             <span className="input-group-text">°C</span>
           </div>
         </div>

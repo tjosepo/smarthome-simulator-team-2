@@ -1,6 +1,8 @@
 package smarthome.controllers;
 
 import io.javalin.Javalin;
+import io.javalin.plugin.json.JavalinJson;
+import io.javalin.websocket.WsConnectContext;
 import smarthome.interfaces.Module;
 import smarthome.interfaces.Observable;
 import smarthome.interfaces.Observer;
@@ -8,7 +10,6 @@ import smarthome.models.Room;
 import smarthome.models.User;
 import smarthome.models.Window;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,6 +31,10 @@ public class SmartHomeSimulator implements Observable {
     private List<Module> modules = new LinkedList();
     private List<Observer> observers = new LinkedList();
 
+    private boolean isSimulating = false;
+    private List<WsConnectContext> connections = new LinkedList<>();
+    private int simulationSpeed = 1;
+
     /**
      * Instantiates a new Simulation.
      */
@@ -41,7 +46,7 @@ public class SmartHomeSimulator implements Observable {
 
         Console.createConnection(app);
         house = new House(app);
-        params = new Parameters(app);
+        params = new Parameters(app, this);
 
         app.post("/api/move-users", ctx -> {
             List<User> users = params.getUsers();
@@ -65,10 +70,47 @@ public class SmartHomeSimulator implements Observable {
             }
             ctx.json(rooms);
         });
+
+        app.post("/api/start-simulation", ctx -> {
+            isSimulating = true;
+            startSimulation();
+        });
+        app.post("/api/stop-simulation", ctx -> isSimulating = false);
+        app.post("/api/set-simulation-speed", ctx -> {
+            simulationSpeed = Integer.parseInt(ctx.formParam("simulationSpeed"));
+            Console.print("Simulation speed set to " + simulationSpeed + ".");
+        });
+        app.ws("/websocket/simulation", ws -> {
+            ws.onConnect(ctx -> {
+                connections.add(ctx);
+            });
+            ws.onClose(ctx -> {
+                connections.remove(ctx);
+            });
+        });
+    }
+
+    private void startSimulation() {
+        new Thread(() -> {
+            Console.print("Simulation start.");
+            house.getRooms().forEach(room -> room.temperature = 0);
+            while (isSimulating) {
+                modules.forEach(module -> module.loop(simulationSpeed));
+                String json = JavalinJson.toJson(house.getRooms());
+                connections.forEach(connection -> connection.send(json));
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Console.print("[ERROR] " + e.getMessage());
+                }
+            }
+            Console.print("Simulation stop.");
+        }).run();
     }
 
     public void loadModule(Module m) {
         m.onLoad(app, this);
+        modules.add(m);
     }
 
     public Module getModule(Class classType) {

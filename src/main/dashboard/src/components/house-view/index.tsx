@@ -10,10 +10,11 @@ interface Props {
   rooms: Room[],
   users: User[],
   simulating: boolean,
-  awayMode: boolean
+  awayMode: boolean,
+  outsideTemp: number
 }
 
-function HouseView({ rooms, users, simulating, awayMode }: Props) {
+function HouseView({ rooms, users, simulating, awayMode, outsideTemp }: Props) {
   let house: [Room[]] = [[]]; // Wierd syntax for 2D array.
 
   const render = (rooms: Room[]) => {
@@ -36,12 +37,33 @@ function HouseView({ rooms, users, simulating, awayMode }: Props) {
             {simulating && <span className="simulating-notice">Simulating</span>}
             {awayMode && <span className="away-mode-notice">Away Mode</span>}
           </div>
+          <div className="temperature">
+            <span className="temperature-notice">{outsideTemp.toFixed(1)}°C</span>
+          </div>
           {house.map((row) =>
             row.map((room) => room
               && <div key={room.id} className="room" style={{ gridArea: `${room.y + 1} / ${room.x + 1} / span ${room.height || 1} / span ${room.width || 1}` }}>
                 <div className="room-name">
                   {room.name}
                 </div>
+
+                {room.temperature !== 0 &&
+                  <div className="room-temperature">
+                    {room.isAc &&
+                      <span>❄</span>
+                    }
+                    {room.isHeating &&
+                      <span>🔥</span>
+                    }
+                    {room.temperature.toFixed(1)}°C
+                </div>
+                }
+
+                {room.overridden &&
+                  <div className="room-overridden">
+                    Overridden
+                </div>
+                }
 
                 <div className="room-doors">
                   {room.doors.map((door) =>
@@ -80,6 +102,8 @@ function HouseView({ rooms, users, simulating, awayMode }: Props) {
                   )}
                 </div>
               </div>
+
+
             )
           )}
         </div>
