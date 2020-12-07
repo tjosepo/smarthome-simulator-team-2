@@ -1,5 +1,7 @@
 package smarthome.controllers;
 
+import smarthome.exceptions.LoggingException;
+
 import io.javalin.Javalin;
 import io.javalin.websocket.WsConnectContext;
 
@@ -36,7 +38,7 @@ public class Console {
         });
     }
 
-    public static void print(String message) {
+    public static void print(String message) throws LoggingException {
         String output = getTimestamp() + " " + message;
         System.out.println(output);
         try {
@@ -44,7 +46,7 @@ public class Console {
             log.newLine();
             log.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new LoggingException("Logging exception", e);
         }
         connections.forEach(ctx -> {
             ctx.send(output);
