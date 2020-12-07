@@ -6,6 +6,7 @@ import smarthome.controllers.Console;
 import smarthome.controllers.House;
 import smarthome.controllers.Parameters;
 import smarthome.controllers.SmartHomeSimulator;
+import smarthome.exceptions.LoggingException;
 import smarthome.interfaces.Module;
 import smarthome.interfaces.Observable;
 import smarthome.interfaces.Observer;
@@ -42,7 +43,11 @@ public class SmartHomeCore implements Module, Observer {
     }
 
     public void print(String message) {
-        Console.print(message);
+        try {
+            Console.print(message);
+        } catch (LoggingException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void update(Observable o) {
@@ -50,7 +55,11 @@ public class SmartHomeCore implements Module, Observer {
 
         if (autoMode) {
             autoToggleLights(shs);
-            Console.print("Lights toggled automatically.");
+            try {
+                Console.print("Lights toggled automatically.");
+            } catch (LoggingException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -61,9 +70,14 @@ public class SmartHomeCore implements Module, Observer {
         Parameters params = shs.getParameters();
         User user = params.getLoggedAs();
         if (user == null) {
-            Console.print("[ERROR] User must be logged in to toggle light.");
+            try {
+                Console.print("[ERROR] User must be logged in to toggle light.");
+            } catch (LoggingException e) {
+                System.out.println(e.getMessage());
+            }
             return;
         }
+
         String userRole = user.getRole();
         Room userLocation = user.getLocation();
 
@@ -83,28 +97,48 @@ public class SmartHomeCore implements Module, Observer {
         }
 
         if (lightToToggle == null) {
-            Console.print("[ERROR] Could not find light to toggle.");
+            try {
+                Console.print("[ERROR] Could not find light to toggle.");
+            } catch (LoggingException e) {
+                System.out.println(e.getMessage());
+            }
             return;
         }
 
         // Permissions
         if (userRole.equals("Stranger")) {
-            Console.print("[ERROR] Stranger is not allowed to toggle lights.");
+            try {
+                Console.print("[ERROR] Stranger is not allowed to toggle lights.");
+            } catch (LoggingException e) {
+                System.out.println(e.getMessage());
+            }
             return;
         }
 
         if (!userRole.equals("Parent") && userLocation == null) {
-            Console.print("[ERROR] " + userRole + " is not allowed to toggle light when outside of house.");
+            try {
+                Console.print("[ERROR] " + userRole + " is not allowed to toggle light when outside of house.");
+            } catch (LoggingException e) {
+                System.out.println(e.getMessage());
+            }
             return;
         }
 
         if (!userRole.equals("Parent") && userLocation != lightLocation) {
-            Console.print("[ERROR] " + userRole + " is not allowed to toggle " + lightLocation.getName() + " light while in " + userLocation.getName());
+            try {
+                Console.print("[ERROR] " + userRole + " is not allowed to toggle " + lightLocation.getName() + " light while in " + userLocation.getName());
+            } catch (LoggingException e) {
+                System.out.println(e.getMessage());
+            }
             return;
         }
 
         lightToToggle.setOn(isOn);
-        Console.print("Toggled light " + (isOn ? "on" : "off") + ".");
+        try {
+            Console.print("Toggled light " + (isOn ? "on" : "off") + ".");
+        } catch (LoggingException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void toggleWindow(Context ctx, SmartHomeSimulator shs) {
@@ -114,7 +148,11 @@ public class SmartHomeCore implements Module, Observer {
         Parameters params = shs.getParameters();
         User user = params.getLoggedAs();
         if (user == null) {
-            Console.print("[ERROR] User must be logged in to toggle window.");
+            try {
+                Console.print("[ERROR] User must be logged in to toggle window.");
+            } catch (LoggingException e) {
+                System.out.println(e.getMessage());
+            }
             return;
         }
         String userRole = user.getRole();
@@ -136,23 +174,39 @@ public class SmartHomeCore implements Module, Observer {
         }
 
         if (windowToToggle == null) {
-            Console.print("[ERROR] Could not find window to toggle.");
+            try {
+                Console.print("[ERROR] Could not find window to toggle.");
+            } catch (LoggingException e) {
+                System.out.println(e.getMessage());
+            }
             return;
         }
 
         // Permissions
         if (userRole.equals("Stranger")) {
-            Console.print("[ERROR] Stranger is not allowed to toggle window.");
+            try {
+                Console.print("[ERROR] Stranger is not allowed to toggle window.");
+            } catch (LoggingException e) {
+                System.out.println(e.getMessage());
+            }
             return;
         }
 
         if (!userRole.equals("Parent") && userLocation == null) {
-            Console.print("[ERROR] " + userRole + " is not allowed to toggle window when outside of house.");
+            try {
+                Console.print("[ERROR] " + userRole + " is not allowed to toggle window when outside of house.");
+            } catch (LoggingException e) {
+                System.out.println(e.getMessage());
+            }
             return;
         }
 
         if (!userRole.equals("Parent") && userLocation != windowLocation) {
-            Console.print("[ERROR] " + userRole + " is not allowed to toggle " + windowLocation.getName() + " window while in " + userLocation.getName());
+            try {
+                Console.print("[ERROR] " + userRole + " is not allowed to toggle " + windowLocation.getName() + " window while in " + userLocation.getName());
+            } catch (LoggingException e) {
+                System.out.println(e.getMessage());
+            }
             return;
         }
 
@@ -166,7 +220,11 @@ public class SmartHomeCore implements Module, Observer {
         Parameters params = shs.getParameters();
         User user = params.getLoggedAs();
         if (user == null) {
-            Console.print("[ERROR] User must be logged in to toggle door.");
+            try {
+                Console.print("[ERROR] User must be logged in to toggle door.");
+            } catch (LoggingException e) {
+                System.out.println(e.getMessage());
+            }
             return;
         }
         String userRole = user.getRole();
@@ -188,18 +246,30 @@ public class SmartHomeCore implements Module, Observer {
         }
 
         if (doorToToggle == null) {
-            Console.print("[ERROR] Could not find door to toggle.");
+            try {
+                Console.print("[ERROR] Could not find door to toggle.");
+            } catch (LoggingException e) {
+                System.out.println(e.getMessage());
+            }
             return;
         }
 
         // Permissions
         if (!userRole.equals("Parent")) {
-            Console.print("[ERROR] " + userRole + " is not allowed to toggle door.");
+            try {
+                Console.print("[ERROR] " + userRole + " is not allowed to toggle door.");
+            } catch (LoggingException e) {
+                System.out.println(e.getMessage());
+            }
             return;
         }
 
         doorToToggle.setOpened(isOpened);
-        Console.print((isOpened ? "Opened" : "Closed") + " door.");
+        try {
+            Console.print((isOpened ? "Opened" : "Closed") + " door.");
+        } catch (LoggingException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void autoToggleLights(SmartHomeSimulator shs) {
